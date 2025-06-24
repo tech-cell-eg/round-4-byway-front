@@ -101,7 +101,6 @@ const HomeScreen: React.FC = () => {
               <h3 className="text-2xl font-bold text-black">{item.number}</h3>
               <p className="text-sm text-gray-600">{item.label}</p>
             </div>
-
             {/* Vertical divider for large screens only */}
             {index !== stats.length - 1 && (
               <div className="hidden lg:block h-12 w-px bg-gray-300 mx-2" />
@@ -151,8 +150,6 @@ const HomeScreen: React.FC = () => {
               </button>
             </div>
           </div>
-
-          {/* Testimonials */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {users.map((user) => (
               <div
