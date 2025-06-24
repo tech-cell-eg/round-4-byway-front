@@ -143,10 +143,10 @@ const HomeScreen: React.FC = () => {
               What Our Customer Say About Us
             </h2>
             <div className="flex gap-5">
-              <button className="flex items-center justify-center w-12 h-8 rounded-md bg-gray-400 text-white shadow border hover:bg-gray-100">
+              <button className="flex items-center justify-center w-12 h-8 rounded-md bg-gray-400 hover:bg-gray-500 text-white shadow border cursor-pointer">
                 <FaArrowLeft />
               </button>
-              <button className="flex items-center justify-center w-12 h-8 rounded-md bg-gray-400 text-white shadow border hover:bg-gray-100">
+              <button className="flex items-center justify-center w-12 h-8 rounded-md bg-gray-400 hover:bg-gray-500 text-white shadow border cursor-pointer">
                 <FaArrowRight />
               </button>
             </div>

@@ -42,8 +42,7 @@ const BywayNavbar: React.FC = () => {
             />
             <span>Byway</span>
           </Link>
-
-          {/* Desktop Navigation (now only shows on lg screens and up) */}
+          {/* Desktop Navigation */}
           <div className="hidden lg:flex justify-around items-center flex-1 mx-8">
             <div className="flex space-x-6">
               {navLinks.map((link) => (
@@ -56,13 +55,11 @@ const BywayNavbar: React.FC = () => {
                 </Link>
               ))}
             </div>
-
             <div className="flex-1 mx-6 max-w-xl">
               <SearchBar />
             </div>
           </div>
-
-          {/* Desktop Auth Buttons (now only shows on lg screens and up) */}
+          {/* Desktop Auth Buttons*/}
           <div className="hidden lg:flex items-center space-x-4">
             {authLinks.map((link) => (
               <Link
@@ -79,8 +76,7 @@ const BywayNavbar: React.FC = () => {
               </Link>
             ))}
           </div>
-
-          {/* Mobile Menu Button (now shows on md and sm screens) */}
+          {/* Mobile Menu Button*/}
           <button
             className="lg:hidden p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500"
             onClick={toggleMenu}
@@ -94,14 +90,12 @@ const BywayNavbar: React.FC = () => {
             )}
           </button>
         </div>
-
-        {/* Mobile Menu (now shows on md and sm screens) */}
+        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 space-y-4">
             <div className="mb-4">
               <SearchBar />
             </div>
-
             <div className="space-y-2">
               {navLinks.map((link) => (
                 <Link
@@ -114,7 +108,6 @@ const BywayNavbar: React.FC = () => {
                 </Link>
               ))}
             </div>
-
             <div className="pt-4 border-t border-gray-200 space-y-3">
               {authLinks.map((link) => (
                 <Link
