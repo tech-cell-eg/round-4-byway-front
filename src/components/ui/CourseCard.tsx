@@ -8,7 +8,6 @@ import {
 } from "./card";
 
 type CourseCardProps = {
-  image: string;
   title: string;
   instructor: string;
   rating: number;
@@ -20,7 +19,6 @@ type CourseCardProps = {
 };
 
 const CourseCard = ({
-  image,
   title,
   instructor,
   rating,
@@ -34,7 +32,7 @@ const CourseCard = ({
     <Card className="w-full max-w-[298px] sm:h-[420px] lg:h-[390px] p-[16px] border border-[#E2E8F0] flex flex-col mx-auto">
 
       <img
-        src={image}
+        src='src/components/ui/images/cources.jpg'
         alt={title}
         className="w-full h-[170px] object-cover p-2"
       />
