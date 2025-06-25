@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { FaSearch } from "react-icons/fa";
 
-const SearchBar = () => {
+const SearchBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
@@ -13,7 +14,7 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSearch}
-      className={`relative flex items-center transition-all duration-200  ${
+      className={`relative flex items-center transition-all duration-200 m-2 ${
         isFocused ? "ring-2 ring-gray-500" : "ring-1 ring-gray-300"
       } rounded-lg overflow-hidden bg-white shadow-sm`}
     >
@@ -28,12 +29,12 @@ const SearchBar = () => {
       />
       <button
         type="submit"
-        className={`absolute right-0 h-full px-4 flex items-center justify-center ${
-          isFocused ? "bg-gray-600" : "bg-gray-100"
+        className={`absolute right-0 h-full px-4 flex items-center justify-center cursor-pointer ${
+          isFocused ? "bg-gray-300" : "bg-gray-100"
         } transition-colors duration-200`}
         aria-label="Search"
       >
-        Search
+        <FaSearch />
       </button>
     </form>
   );
