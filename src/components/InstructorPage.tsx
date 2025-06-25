@@ -25,7 +25,7 @@ rating: {
 };
 };
 
-function InstructorPage() {
+function InstructorPage({apiData}:{apiData:FakeStoreProduct[]}) {
     const [Courses, setCourses] = useState<CourseCardProps[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 4;
@@ -36,10 +36,7 @@ function InstructorPage() {
 );
 
 useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-        .then((res) => res.json())
-        .then((data: FakeStoreProduct[]) => {
-        const allCourses = data.map((item) => ({
+        const allCourses = apiData.map((item) => ({
             title: item.title.slice(0, 20),
             instructor: "Fake Instructor",
             rating: item.rating.rate,
@@ -50,8 +47,7 @@ useEffect(() => {
             price: `$${item.price}`,
         }));
         setCourses(allCourses);
-        });
-    }, []);
+    }, [apiData]);
 
 return (
     <>
