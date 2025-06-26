@@ -1,22 +1,33 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import NotFound from "./pages/NotFound";
-import Layout from "./components/Layout";
-import HomeScreen from "./pages/HomeScreen";
-import CourseLearningPage from "./pages/CourseLearningPage";
-import ScrollToTop from "./components/ScrollToTop";
 
+import { useEffect, useState } from 'react';
+import './App.css';
+import FullPageLoader from './components/ui/FullPageLoader';
+import InstructorPage from './components/InstructorPage';
+import CourseProgress from './components/ui/CourseProgress';
 function App() {
+  const [allData , setAllData] = useState([]);
+  const [IsLoading , setIsLoading] = useState(true);
+  useEffect(()=>{
+    fetch("https://fakestoreapi.com/products")
+    .then((data)=>data.json())
+    .then((data)=>{
+    setAllData(data);
+    setIsLoading(false);
+  }).catch((error)=>
+    <p>{error}</p>
+  )
+  }, [])
+  if (IsLoading) {
+    return <FullPageLoader/>
+  }
   return (
     <>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomeScreen />} />
-          <Route path="/courses/:id" element={<CourseLearningPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+    
+    
+    <InstructorPage apiData ={allData}/>
+
+    <CourseProgress/>
+
     </>
   );
 }
