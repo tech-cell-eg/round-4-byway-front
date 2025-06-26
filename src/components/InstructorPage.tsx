@@ -51,7 +51,7 @@ useEffect(() => {
 
 return (
     <>
-        <div className="max-w-full p-10 mx-auto flex flex-col-reverse lg:flex-row gap-10 justify-between">
+        <div className="max-w-full p-10 mx-auto flex flex-col-reverse md:flex-row gap-10 justify-between">
             <div className="lg:justify-start justify-center mx-auto leading-[160%]">
                 <p className="text-weight-400 text-[14px] text-[#334155]">Instructor</p>
                 <h2 className="text-[32px] font-bold text-gray-900">Ronald Richards</h2>

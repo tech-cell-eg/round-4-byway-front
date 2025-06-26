@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import FullPageLoader from './components/ui/FullPageLoader';
 import InstructorPage from './components/InstructorPage';
+import CourseProgress from './components/ui/CourseProgress';
 function App() {
   const [allData , setAllData] = useState([]);
   const [IsLoading , setIsLoading] = useState(true);
@@ -24,6 +25,8 @@ function App() {
     
     
     <InstructorPage apiData ={allData}/>
+
+    <CourseProgress/>
     </>
   );
 }
