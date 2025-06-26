@@ -27,6 +27,7 @@ function App() {
     <InstructorPage apiData ={allData}/>
 
     <CourseProgress/>
+
     </>
   );
 }
