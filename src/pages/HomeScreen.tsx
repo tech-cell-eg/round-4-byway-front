@@ -83,7 +83,7 @@ const HomeScreen: React.FC = () => {
             <p className="text-lg text-gray-600">
               Welcome to Byway, where learning knows no bounds...
             </p>
-            <button className="w-fit rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700">
+            <button className="w-fit rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors cursor-pointer hover:bg-blue-700">
               Start your instructor journey
             </button>
           </div>
@@ -97,7 +97,7 @@ const HomeScreen: React.FC = () => {
         </div>
       </div>
       {/* Status */}
-      <div className="w-full bg-gray-100 px-6 py-8 md:px-10 lg:px-20 lg:py-10 flex flex-col lg:flex-row justify-between items-center gap-10 lg:gap-6">
+      <div className="w-full bg-gray-100 px-6 py-8 mt-5 md:px-10 lg:px-20 lg:py-10 flex flex-col lg:flex-row justify-between items-center gap-10 lg:gap-6">
         {stats.map((item, index) => (
           <div
             key={index}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FiMenu,
@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
   const handleSignup = () => {
     setIsLoggedIn(true);
     setUser({
-      name: "New User",
+      name: "New Ahmed",
       email: "new@example.com",
       avatar: defaultAvatar,
     });
@@ -106,6 +106,23 @@ const Navbar: React.FC = () => {
       onClick: handleLogout,
     },
   ];
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Icon group component
   const IconGroup = () => (
@@ -181,9 +198,8 @@ const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center space-x-4">
             {!isLoggedIn ? (
               authLinks.map((link) => (
-                <Link
+                <button
                   key={link.path}
-                  to={link.path}
                   onClick={link.onClick}
                   className={`cursor-pointer flex items-center px-4 py-2 rounded-md transition-all duration-300 ease-in-out ${
                     link.isPrimary
@@ -192,12 +208,12 @@ const Navbar: React.FC = () => {
                   }`}
                 >
                   {link.label}
-                </Link>
+                </button>
               ))
             ) : (
               <>
                 <IconGroup />
-                <div className="relative">
+                <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={toggleDropdown}
                     className="flex items-center space-x-2 focus:outline-none cursor-pointer"
@@ -209,23 +225,29 @@ const Navbar: React.FC = () => {
                     />
                     <span className="text-gray-700">{user.name}</span>
                   </button>
-                  {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
-                      {dropdownLinks.map((item) => (
-                        <div
-                          key={item.label}
-                          onClick={() => {
-                            if (item.onClick) item.onClick();
-                            setIsDropdownOpen(false);
-                          }}
-                          className="cursor-pointer flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
-                        >
-                          <span className="mr-3">{item.icon}</span>
-                          {item.label}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+
+                  {/* Dropdown menu with transition */}
+                  <div
+                    className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200 transform transition-all duration-200 origin-top-right ${
+                      isDropdownOpen
+                        ? "scale-100 opacity-100 pointer-events-auto"
+                        : "scale-95 opacity-0 pointer-events-none"
+                    }`}
+                  >
+                    {dropdownLinks.map((item) => (
+                      <div
+                        key={item.label}
+                        onClick={() => {
+                          if (item.onClick) item.onClick();
+                          setIsDropdownOpen(false);
+                        }}
+                        className="cursor-pointer flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                      >
+                        <span className="mr-3">{item.icon}</span>
+                        {item.label}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </>
             )}
