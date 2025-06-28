@@ -1,6 +1,4 @@
 import { ReactNode,useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ListFilter } from "lucide-react";
 import  FillterBtn  from '@/components/FillterBtn';
 
 interface ProfileHeaderProps {

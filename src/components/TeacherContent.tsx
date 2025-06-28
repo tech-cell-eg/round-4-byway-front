@@ -1,72 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import ProfileHeader from './ProfileHeader'
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import instructorImg from "@/assets/instructor.avif"
 import InstructorCard from '@/components/InstructorCard';
 
+
+type InstructorType = {
+  name: string;
+  role: string;
+  img: string;
+  rate: number;
+  students: number;
+  chapters: string;
+};
+
 const TeacherContent = () => {
-  const instructors = [
-    {
-      name: "Ronald Richards",
-      role: "UI/UX Designer",
-      img: instructorImg,
-      rate: 4,
-      students: 2400,
-    },
-    {
-      name: "Jane Doe",
-      role: "Frontend Developer",
-      img: instructorImg,
-      rate: 5,
-      students: 3100,
-    },
-    {
-      name: "Ronald Richards",
-      role: "UI/UX Designer",
-      img: instructorImg,
-      rate: 4,
-      students: 2400,
-    },
-    {
-      name: "Jane Doe",
-      role: "Frontend Developer",
-      img: instructorImg,
-      rate: 5,
-      students: 3100,
-    },
-    {
-      name: "Ronald Richards",
-      role: "UI/UX Designer",
-      img: instructorImg,
-      rate: 4,
-      students: 2400,
-    },
-    {
-      name: "Jane Doe",
-      role: "Frontend Developer",
-      img: instructorImg,
-      rate: 5,
-      students: 3100,
-    },
-    {
-      name: "Ronald Richards",
-      role: "UI/UX Designer",
-      img: instructorImg,
-      rate: 4,
-      students: 2400,
-    },
-    {
-      name: "Jane Doe",
-      role: "Frontend Developer",
-      img: instructorImg,
-      rate: 5,
-      students: 3100,
-    },
-  ];
-  const [selectedRating, setSelectedRating] = useState<number | null>(null);
-    const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
-    const [searchQuery, setSearchQuery] = useState('');
+  const [instructors, setInstructors] = useState<InstructorType[]>([]);
+      const [loading, setLoading] = useState(true);
+
+const [searchQuery, setSearchQuery] = useState('');
+const [selectedRating, setSelectedRating] = useState<number | null>(null);
+const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
+
+useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((data) => {
+        const mapped = data.map((item: any): InstructorType => ({
+          name: item.title.split(" ").filter((word:string) => !word.includes("-")).slice(0, 2).join(" "),
+          role: item.category,
+          img: item.image,
+          rate: Math.floor(Math.random() * 5) + 1,
+          students: Math.floor(Math.random() * 5000),
+          chapters: ["1-10", "10-15", "15-20", "20-25", "25-30"][Math.floor(Math.random() * 5)],
+        }));
+        setInstructors(mapped);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
 
 
  const filteredInstructors = instructors.filter((instructor) => {
@@ -76,6 +49,7 @@ const TeacherContent = () => {
 
     return matchesRating && matchesChapters && matchesSearch;
   });
+  // if (loading) return <p className="text-center"><Loading/></p>;
 
   return (
     <div className='flex flex-col flex-1'>
