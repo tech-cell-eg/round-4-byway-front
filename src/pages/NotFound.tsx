@@ -6,7 +6,7 @@ const NotFound: React.FC = () => {
   return (
     <>
       <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+        <div className="flex flex-col items-center lg:gap-8 md:flex-row md:justify-between">
           <div className="flex flex-col space-y-6 md:w-1/2">
             <h1 className="text-6xl">Oops...</h1>
             <p className="text-md text-gray-500 mb-6">
