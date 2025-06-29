@@ -1,3 +1,4 @@
+
 import { Route, Routes } from "react-router-dom";
 import InstructorPage from './components/InstructorPage';
 import CourseProgress from './components/ui/CourseProgress';
@@ -9,6 +10,8 @@ import CourseLearningPage from "./pages/CourseLearningPage";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
     <>
       <ScrollToTop />
@@ -22,6 +25,6 @@ function App() {
         </Route>
       </Routes>
     </>
-  );
+  )
 }
 export default App;
