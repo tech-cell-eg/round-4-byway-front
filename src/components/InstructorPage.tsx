@@ -1,55 +1,65 @@
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import CourseCard from "./ui/CourseCard";
+import FullPageLoader from "./ui/FullPageLoader";
 
 type CourseCardProps = {
-title: string;
-instructor: string;
-rating: number;
-ratingCount: number;
-hours: number;
-lectures: number;
-level: string;
-price: string;
+  title: string;
+  instructor: string;
+  rating: number;
+  ratingCount: number;
+  hours: number;
+  lectures: number;
+  level: string;
+  price: string;
 };
 
 type FakeStoreProduct = {
-id: number;
-title: string;
-price: number;
-description: string;
-category: string;
-rating: {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  rating: {
     rate: number;
     count: number;
-};
+  };
 };
 
-function InstructorPage({apiData}:{apiData:FakeStoreProduct[]}) {
-    const [Courses, setCourses] = useState<CourseCardProps[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4;
-    const totalPages = Math.ceil(Courses.length / itemsPerPage);
-    const paginatedCourses = Courses.slice(
+function InstructorPage() {
+  const [Courses, setCourses] = useState<CourseCardProps[]>([]);
+  const [IsLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+
+  const totalPages = Math.ceil(Courses.length / itemsPerPage);
+  const paginatedCourses = Courses.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
-);
+  );
 
-useEffect(() => {
-        const allCourses = apiData.map((item) => ({
-            title: item.title.slice(0, 20),
-            instructor: "Fake Instructor",
-            rating: item.rating.rate,
-            ratingCount: item.rating.count,
-            hours: Math.floor(Math.random() * 20) + 1,
-            lectures: Math.floor(Math.random() * 50) + 5,
-            level: "Beginner",
-            price: `$${item.price}`,
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => res.json())
+      .then((data: FakeStoreProduct[]) => {
+        const allCourses = data.map((item) => ({
+          title: item.title.slice(0, 20),
+          instructor: "Fake Instructor",
+          rating: item.rating.rate,
+          ratingCount: item.rating.count,
+          hours: Math.floor(Math.random() * 20) + 1,
+          lectures: Math.floor(Math.random() * 50) + 5,
+          level: "Beginner",
+          price: `$${item.price}`,
         }));
         setCourses(allCourses);
-    }, [apiData]);
+        setIsLoading(false);
+      });
+  }, []);
 
-return (
+  if (IsLoading) return <FullPageLoader />;
+
+  return (
     <>
         <div className="max-w-full p-10 mx-auto flex flex-col-reverse md:flex-row gap-10 justify-between">
             <div className="lg:justify-start justify-center mx-auto leading-[160%]">

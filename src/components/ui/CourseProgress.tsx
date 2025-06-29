@@ -72,7 +72,7 @@ function CourseProgress() {
                       className={`p-4 flex justify-between m-5 rounded-md cursor-pointer ${bgClass}`}
                     >
                       <div className="flex gap-3 items-center">
-                        <input type="checkbox" checked={lesson.completed} readOnly />
+                        <input type="checkbox" className="bg-green-500" checked={lesson.completed} readOnly />
                         <span className="w-[215px] text-[16px] font-[400]">
                           {i}. {lesson.title}
                         </span>
