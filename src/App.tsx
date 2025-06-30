@@ -1,13 +1,16 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import InstructorPage from "./components/InstructorPage";
+import CourseProgress from "./components/ui/CourseProgress";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import HomeScreen from "./pages/HomeScreen";
 import CourseLearningPage from "./pages/CourseLearningPage";
 import ScrollToTop from "./components/ScrollToTop";
 import ShoppingCart from "./pages/ShoppingCart";
+
 import CoursePage from "./pages/CoursePage";
 import InstructorPage from "./pages/InstructorPage";
+
 
 function App() {
   return (
@@ -24,10 +27,12 @@ function App() {
           <Route path="/cart" element={<ShoppingCart />} />
           <Route path="/instructor" element={<InstructorPage />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/cart" element={<ShoppingCart />} />
+          <Route path="/instructor" element={<InstructorPage />} />
+          <Route path="/progress" element={<CourseProgress />} />
         </Route>
       </Routes>
     </>
   );
 }
-
 export default App;

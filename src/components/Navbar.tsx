@@ -6,7 +6,6 @@ import {
   FiShoppingCart,
   FiUser,
   FiLogOut,
-  FiSettings,
   FiBook,
   FiGlobe,
   FiBell,
@@ -15,6 +14,7 @@ import {
 import logo from "../assets/logo.png";
 import SearchBar from "./SearchBar";
 import defaultAvatar from "../assets/logo.png";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -96,8 +96,8 @@ const Navbar: React.FC = () => {
       icon: <FiGlobe className="w-4 h-4" />,
     },
     {
-      label: "Dark Mode",
-      icon: <FiSettings className="w-4 h-4" />,
+      label: <ModeToggle />,
+      icon: null,
     },
     {
       path: "/logout",
@@ -237,6 +237,11 @@ const Navbar: React.FC = () => {
                     {dropdownLinks.map((item) => (
                       <div
                         key={item.label}
+
+                    {dropdownLinks.map((item, index) => (
+                      <div
+                        key={index}
+
                         onClick={() => {
                           if (item.onClick) item.onClick();
                           setIsDropdownOpen(false);
@@ -356,9 +361,9 @@ const Navbar: React.FC = () => {
                     </Link>
                   </div>
                   {/* Dropdown Links */}
-                  {dropdownLinks.map((item) => (
+                  {dropdownLinks.map((item, index) => (
                     <div
-                      key={item.label}
+                      key={index}
                       onClick={() => {
                         if (item.onClick) item.onClick();
                         closeMenu();
