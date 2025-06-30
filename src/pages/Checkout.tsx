@@ -4,10 +4,10 @@ import { CirclePercent } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import Profile from "@/pages/Profile";
 import visaIcon from "@/assets/visa.png"
 import paypalIcon from "@/assets/paypal.png"
 import orderDetails from "@/assets/orderDetails.png"
+import CoursePage from "./CoursePage";
 const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [orderComplete, setOrderComplete] = useState(false);
@@ -22,7 +22,7 @@ const Checkout = () => {
   };
 
   if (showCourses) {
-    // return <Courses/>;
+    return <CoursePage/>;
   }
 
 
@@ -41,7 +41,7 @@ const Checkout = () => {
   }
 
   return (
-    <div className="container mx-auto flex gap-10">
+    <div className="container w-[85%] mx-auto flex gap-10 mt-6">
       {/* Left Section: Billing + Payment */}
       <div className="flex flex-col gap-4 flex-1 border border-[#E2E8F0] rounded-lg p-6 " >
               <h1 className="text-[#0F172A] font-semibold text-2xl">Checkout Page</h1>
