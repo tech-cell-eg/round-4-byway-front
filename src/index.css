@@ -1,9 +1,6 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
-* {
+:root {
   scroll-behavior: auto;
   box-sizing: border-box;
 }
@@ -122,13 +119,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
+  button {
+    background-color: #f9f9f9;
   }
-}
-* {
-  box-sizing: border-box;
-}
-html {
-  scroll-behavior: smooth;
 }

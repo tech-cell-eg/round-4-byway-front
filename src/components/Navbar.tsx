@@ -226,7 +226,6 @@ const Navbar: React.FC = () => {
                     />
                     <span className="text-gray-700">{user.name}</span>
                   </button>
-
                   {/* Dropdown menu with transition */}
                   <div
                     className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200 transform transition-all duration-200 origin-top-right ${
