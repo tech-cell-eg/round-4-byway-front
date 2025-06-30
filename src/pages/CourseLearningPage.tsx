@@ -8,6 +8,7 @@ import {
 import instructor from "../assets/instructor.png";
 import videoImage from "../assets/course-learning-page.jpg";
 import Tabs from "../components/Tabs";
+import CourseProgress from "@/components/ui/CourseProgress";
 
 const CourseLearningPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState("details");
@@ -146,7 +147,9 @@ const CourseLearningPage: React.FC = () => {
           </div>
         </div>
         {/* Course-Progress Component */}
-        <aside className="space-y-6">Course-Progress Component</aside>
+        <aside className="space-y-6">
+          <CourseProgress/>
+        </aside>
       </div>
     </div>
   );

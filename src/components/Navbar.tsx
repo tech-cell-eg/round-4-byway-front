@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { path: "/courses", label: "Categories" },
-    { path: "/become-instructor", label: "Teach on Byway" },
+    { path: "/instructor", label: "Teach on Byway" },
   ];
 
   const authLinks = [
@@ -198,7 +198,7 @@ const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center space-x-4">
             {!isLoggedIn ? (
               authLinks.map((link) => (
-                <button
+                <Link to={link.path}
                   key={link.path}
                   onClick={link.onClick}
                   className={`cursor-pointer flex items-center px-4 py-2 rounded-md transition-all duration-300 ease-in-out ${
@@ -208,7 +208,8 @@ const Navbar: React.FC = () => {
                   }`}
                 >
                   {link.label}
-                </button>
+                  {link.icon}
+                </Link>
               ))
             ) : (
               <>
