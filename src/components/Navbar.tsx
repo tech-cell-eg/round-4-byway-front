@@ -208,6 +208,7 @@ const Navbar: React.FC = () => {
                   }`}
                 >
                   {link.label}
+                  {link.icon}
                 </button>
               ))
             ) : (
