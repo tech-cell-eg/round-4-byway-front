@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div className="container mx-auto p-4 h-screen">
-      {/* <Profile/> */}
+      <Profile/>
       {/* <FillterBtn
         selectedRating={selectedRating}
         setSelectedRating={setSelectedRating}
@@ -14,7 +14,7 @@ function App() {
         setSelectedChapters={setSelectedChapters}
       /> */}
 
-      <Checkout/>
+      {/* <Checkout/> */}
     </div>
   );
 }
