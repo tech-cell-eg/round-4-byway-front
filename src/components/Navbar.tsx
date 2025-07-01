@@ -235,9 +235,14 @@ const Navbar: React.FC = () => {
                         : "scale-95 opacity-0 pointer-events-none"
                     }`}
                   >
+                    {dropdownLinks.map((item) => (
+                      <div
+                        key={item.label}
+
                     {dropdownLinks.map((item, index) => (
                       <div
                         key={index}
+
                         onClick={() => {
                           if (item.onClick) item.onClick();
                           setIsDropdownOpen(false);

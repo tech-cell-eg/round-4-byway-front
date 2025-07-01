@@ -13,6 +13,10 @@ import Signup from "./auth/Signup";
 import CoursePage from "./pages/CoursePage";
 import Checkout from "./pages/Checkout";
 
+import CoursePage from "./pages/CoursePage";
+import InstructorPage from "./pages/InstructorPage";
+
+
 function App() {
   return (
     <>
