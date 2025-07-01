@@ -27,8 +27,8 @@ const InstructorCard = ({
   variant = "default",
 }: InstructorCardProps) => {
   return (
-    <div className="rounded-xl border border-[#E2E8F0] shadow-sm p-4  h-auto bg-white transition-all">
-      <div className="flex flex-col gap-4 w-[212px]">
+    <div className="rounded-xl border w-[216px] border-[#E2E8F0] shadow-sm p-4  h-auto bg-white transition-all">
+      <div className="flex flex-col gap-4 ">
         <Avatar className="rounded-lg w-[177px] h-[132px] mx-auto">
           <AvatarImage className="object-cover w-full h-full" src={img} />
           <AvatarFallback>{getName(name)}</AvatarFallback>
