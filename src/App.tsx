@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import InstructorPage from "./components/InstructorPage";
 import CourseProgress from "./components/ui/CourseProgress";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
@@ -13,7 +12,6 @@ import Signup from "./auth/Signup";
 import CoursePage from "./pages/CoursePage";
 import Checkout from "./pages/Checkout";
 
-import CoursePage from "./pages/CoursePage";
 import InstructorPage from "./pages/InstructorPage";
 
 

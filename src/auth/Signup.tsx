@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import frame from "../assets/Frame 427319048.png";
 import GoogleIcon from "../assets/google.png";
@@ -8,7 +9,6 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
 
 const Signup = () => {
   const { t, i18n } = useTranslation();
@@ -48,30 +48,25 @@ const Signup = () => {
 
   return (
     <>
-      <header className="w-full px-4 py-2 border-b bg-white dark:bg-gray-900 flex justify-between items-center shadow-sm">
-        <h1 className="text-lg font-semibold dark:text-white">
-          {t("signup.title")}
-        </h1>
-
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => changeLanguage("ar")}
-            className="text-sm px-3 py-1 rounded border dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-          >
-            عربي
-          </button>
-          <button
-            onClick={() => changeLanguage("en")}
-            className="text-sm px-3 py-1 rounded border dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-          >
-            English
-          </button>
-
-          <ModeToggle />
+      <header>
+        <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-800 shadow-md">
+          <div className="flex gap-2">
+            <button
+              onClick={() => changeLanguage("en")}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            >
+              EN
+            </button>
+            <button
+              onClick={() => changeLanguage("ar")}
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+            >
+              AR
+            </button>
+          </div>
         </div>
       </header>
-
-      <div className="flex flex-col md:flex-row gap-4 p-6 bg-gray-100 dark:bg-gray-900 min-h-[600px] rounded-md transition-colors">
+      <div className="flex flex-col md:flex-row gap-4 p-6 bg-gray-100 dark:bg-gray-900 min-h-[600px]  transition-colors duration-300">
         <section className="flex-1 hidden md:block">
           <img
             src={frame}
@@ -80,8 +75,8 @@ const Signup = () => {
           />
         </section>
 
-        <section className="flex-1 bg-white dark:bg-gray-800 rounded-md p-10 shadow flex flex-col justify-start transition-colors">
-          <h2 className="text-2xl font-semibold text-center mb-6 dark:text-white">
+        <section className="flex-1 bg-white dark:bg-gray-800 rounded-md p-10 shadow-lg transition-colors duration-300">
+          <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800 dark:text-gray-100">
             {t("signup.title")}
           </h2>
 
@@ -96,13 +91,13 @@ const Signup = () => {
                   type="text"
                   name="firstName"
                   placeholder={t("signup.firstName")}
-                  className="flex-1 px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                 />
                 <Field
                   type="text"
                   name="lastName"
                   placeholder={t("signup.lastName")}
-                  className="flex-1 px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                 />
               </div>
 
@@ -110,14 +105,14 @@ const Signup = () => {
                 type="text"
                 name="username"
                 placeholder={t("signup.username")}
-                className="w-full px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
               />
 
               <Field
                 type="email"
                 name="email"
                 placeholder={t("signup.email")}
-                className="w-full px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
               />
 
               <div className="flex gap-4 flex-wrap">
@@ -125,13 +120,13 @@ const Signup = () => {
                   type="password"
                   name="password"
                   placeholder={t("signup.password")}
-                  className="flex-1 px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                 />
                 <Field
                   type="password"
                   name="confirmPassword"
                   placeholder={t("signup.confirmPassword")}
-                  className="flex-1 px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                 />
               </div>
 
@@ -153,16 +148,16 @@ const Signup = () => {
           </div>
 
           <div className="flex gap-4 justify-center">
-            <button className="flex-1 border rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 dark:text-white">
+            <button className="flex-1 border border-gray-300 dark:border-gray-600 rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 text-gray-800  transition-all">
               <FacebookOutlinedIcon color="primary" />
               <span>{t("signup.facebook")}</span>
             </button>
-            <button className="flex-1 border rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 dark:text-white">
-              <img src={GoogleIcon} className="w-5 h-5" alt="" />
+            <button className="flex-1 border border-gray-300 dark:border-gray-600 rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 text-gray-800  transition-all">
+              <img src={GoogleIcon} className="w-5 h-5" alt="Google" />
               <span>{t("signup.google")}</span>
             </button>
-            <button className="flex-1 border rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 dark:text-white">
-              <img src={MicrosoftIcon} className="w-5 h-5" alt="" />
+            <button className="flex-1 border border-gray-300 dark:border-gray-600 rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 text-gray-800  transition-all">
+              <img src={MicrosoftIcon} className="w-5 h-5" alt="Microsoft" />
               <span>{t("signup.microsoft")}</span>
             </button>
           </div>
