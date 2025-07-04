@@ -10,13 +10,12 @@ import ShoppingCart from "./pages/ShoppingCart";
 import Profile from "./pages/Profile";
 import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
-import CoursePage from "./pages/CoursePage";
 import Checkout from "./pages/Checkout";
 
 import CoursePage from "./pages/CoursePage";
-import InstructorPage from "./pages/InstructorPage";
 
-
+import CourseChapters from "./Admin/components/CourseChapters"
+import ChatPage from "./Admin/components/Chat";
 function App() {
   return (
     <>
@@ -36,6 +35,9 @@ function App() {
           <Route path="/signup" element={<Signup/>} />
         </Route>
       </Routes>
+      {/* <CourseChapters/> */}
+      {/* <ChatPage/> */}
+      
     </>
   );
 }

@@ -36,10 +36,10 @@ conversations,
             </Avatar>
             <div className='flex flex-col gap-2'>
               <p className="font-semibold text-gray-900">{conv.name}</p>
-              <p className="text-sm text-gray-600 max-w-xs truncate">{conv.lastMessage}</p>
+              <p className="text-sm text-gray-600 w-[180px] sm:w-[200px] md:w-[240px] lg:w-[280px] xl:w-[320px] truncate">{conv.lastMessage}</p>
             </div>
           </div>
-          <span className="text-xs text-muted-foreground mt-1">{conv.date}</span>
+          <span className="text-xs text-muted-foreground mt-1 lg:flex hidden ">{conv.date}</span>
         </div>
       ))}
     </div>

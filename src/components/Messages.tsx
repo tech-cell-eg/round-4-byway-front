@@ -52,7 +52,7 @@ const Messages = () => {
     <div className='flex flex-col flex-1 gap-4 container mx-auto'>
       <ProfileHeader 
        title="Messages"
-        // count={filteredCourses.length}
+        count={dummyConversations.length}
         selectedRating={selectedRating}
         setSelectedRating={setSelectedRating}
         selectedChapters={selectedChapters}
