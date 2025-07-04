@@ -8,7 +8,7 @@ type InstructorCardProps = {
   img?: string;
   rate: number;
   students: number;
-  variant?: "default" | "compact"; // شكل الكارت
+  variant?: "default" | "compact";  
 };
 
 const getName = (name: string) =>
