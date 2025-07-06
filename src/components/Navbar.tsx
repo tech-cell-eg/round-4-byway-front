@@ -6,6 +6,7 @@ import {
   FiShoppingCart,
   FiUser,
   FiLogOut,
+  FiSettings,
   FiBook,
   FiGlobe,
   FiBell,
@@ -14,7 +15,6 @@ import {
 import logo from "../assets/logo.png";
 import SearchBar from "./SearchBar";
 import defaultAvatar from "../assets/logo.png";
-import { ModeToggle } from "./mode-toggle";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -96,8 +96,8 @@ const Navbar: React.FC = () => {
       icon: <FiGlobe className="w-4 h-4" />,
     },
     {
-      label: <ModeToggle />,
-      icon: null,
+      label: "Dark Mode",
+      icon: <FiSettings className="w-4 h-4" />,
     },
     {
       path: "/logout",
@@ -227,7 +227,6 @@ const Navbar: React.FC = () => {
                     />
                     <span className="text-gray-700">{user.name}</span>
                   </button>
-
                   {/* Dropdown menu with transition */}
                   <div
                     className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200 transform transition-all duration-200 origin-top-right ${
@@ -236,9 +235,9 @@ const Navbar: React.FC = () => {
                         : "scale-95 opacity-0 pointer-events-none"
                     }`}
                   >
-                    {dropdownLinks.map((item, index) => (
+                    {dropdownLinks.map((item) => (
                       <div
-                        key={index}
+                        key={item.label}
                         onClick={() => {
                           if (item.onClick) item.onClick();
                           setIsDropdownOpen(false);
@@ -358,9 +357,9 @@ const Navbar: React.FC = () => {
                     </Link>
                   </div>
                   {/* Dropdown Links */}
-                  {dropdownLinks.map((item, index) => (
+                  {dropdownLinks.map((item) => (
                     <div
-                      key={index}
+                      key={item.label}
                       onClick={() => {
                         if (item.onClick) item.onClick();
                         closeMenu();
