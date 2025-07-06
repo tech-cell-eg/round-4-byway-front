@@ -28,15 +28,18 @@ const Checkout = () => {
 
   if (orderComplete) {
     return (
-      <div className="flex flex-col items-center justify-center h-full gap-4">
-        <div className="w-50 h-50 rounded-full bg-[#16A34A] flex justify-center items-center">
-            <Check className="text-white w-24 h-32"/>
-        </div>
-        <h2 className="text-2xl font-bold text-[#0F172A] text-[40px]">Order Complete</h2>
-        <p className="text-[#0F172A] mt-2 text-center text-[24px] font-semibold">
-          You will now be redirected to your courses page.
-        </p>
-      </div>
+      <div className="flex items-center justify-center min-h-screen">
+  <div className="flex flex-col items-center justify-center gap-4">
+    <div className="w-50 h-50 rounded-full bg-[#16A34A] flex justify-center items-center">
+      <Check className="text-white w-24 h-32" />
+    </div>
+    <h2 className="text-2xl font-bold text-[#0F172A] text-[40px]">Order Complete</h2>
+    <p className="text-[#0F172A] mt-2 text-center text-[24px] font-semibold">
+      You will now be redirected to your courses page.
+    </p>
+  </div>
+</div>
+
     );
   }
 

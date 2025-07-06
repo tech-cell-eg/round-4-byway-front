@@ -19,6 +19,7 @@ import NotificationSend from "./admin/pages/NotificationSend";
 import CourseCustomer from "./admin/pages/CourseCustomer";
 import CourseDetailsPage from "./admin/pages/CourseDetailsPage";
 import CoursePage from "./pages/CoursePage";
+
 function App() {
   return (
     <>
@@ -50,6 +51,9 @@ function App() {
           {/* All Dashboard Routes Go Here*/}
         </Route>
       </Routes>
+      {/* <CourseChapters/> */}
+      {/* <ChatPage/> */}
+      
     </>
   );
 }
