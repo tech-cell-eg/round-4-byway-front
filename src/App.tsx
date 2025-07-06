@@ -12,8 +12,7 @@ import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
 import CoursePage from "./pages/CoursePage";
 import Checkout from "./pages/Checkout";
-import AdminLayout from "./admin/pages/AdminLayout";
-import CourseReviews from "./admin/pages/course-reviews";
+
 
 function App() {
   return (
@@ -32,9 +31,6 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<Signup />} />
-        </Route>
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<CourseReviews />} />
         </Route>
       </Routes>
     </>
