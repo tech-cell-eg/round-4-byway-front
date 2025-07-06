@@ -97,7 +97,7 @@ const HomeScreen: React.FC = () => {
         </div>
       </div>
       {/* Status */}
-      <div className="w-full bg-gray-100 px-6 py-8 mt-5 md:px-10 lg:px-20 lg:py-10 flex flex-col lg:flex-row justify-between items-center gap-10 lg:gap-6">
+      <div className="w-full bg-gray-100 px-6 py-8 mt-5 md:px-10 lg:px-20 lg:py-10 flex flex-col lg:flex-row justify-around items-center gap-10 lg:gap-6">
         {stats.map((item, index) => (
           <div
             key={index}

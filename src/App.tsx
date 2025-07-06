@@ -12,6 +12,13 @@ import CoursePage from "./pages/CoursePage";
 import Checkout from "./pages/Checkout";
 import InstructorPage from "./pages/InstructorPage";
 import CourseProgress from "./components/ui/CourseProgress";
+import ReviewsBadge from "./admin/components/ReviewsBadge";
+import DashboardLayout from "./admin/components/DashboardLayout";
+import DashboardHome from "./admin/pages/DashboardHome";
+import NotificationAnnouncements from "./admin/pages/NotificationAnnouncements";
+import NotificationSend from "./admin/pages/NotificationSend";
+import CourseCustomer from "./admin/pages/CourseCustomer";
+import CourseDetailsPage from "./admin/pages/CourseDetailsPage";
 
 function App() {
   return (
@@ -29,7 +36,19 @@ function App() {
           <Route path="/progress" element={<CourseProgress />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<LoginForm />} />
-          <Route path="/signup" element={<Signup />} />{" "}
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/review" element={<ReviewsBadge />} />
+        </Route>
+        <Route path="/seller" element={<DashboardLayout />}>
+          <Route index path="/seller/dashboard" element={<DashboardHome />} />
+          <Route
+            path="communication-announcements"
+            element={<NotificationAnnouncements />}
+          />
+          <Route path="notification-send" element={<NotificationSend />} />
+          <Route path="course-customer" element={<CourseCustomer />} />
+          <Route path="course-details" element={<CourseDetailsPage />} />
+          {/* All Dashboard Routes Go Here*/}
         </Route>
       </Routes>
     </>
