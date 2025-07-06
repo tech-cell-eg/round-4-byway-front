@@ -8,7 +8,6 @@ import ShoppingCart from "./pages/ShoppingCart";
 import Profile from "./pages/Profile";
 import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
-import CoursePage from "./pages/CoursePage";
 import Checkout from "./pages/Checkout";
 import InstructorPage from "./pages/InstructorPage";
 import CourseProgress from "./components/ui/CourseProgress";
@@ -19,11 +18,11 @@ import NotificationAnnouncements from "./admin/pages/NotificationAnnouncements";
 import NotificationSend from "./admin/pages/NotificationSend";
 import CourseCustomer from "./admin/pages/CourseCustomer";
 import CourseDetailsPage from "./admin/pages/CourseDetailsPage";
-
+import CoursePage from "./pages/CoursePage";
 function App() {
   return (
     <>
-      <ScrollToTop />
+      <ScrollToTop /> 
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomeScreen />} />
