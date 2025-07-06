@@ -12,10 +12,8 @@ import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
 import CoursePage from "./pages/CoursePage";
 import Checkout from "./pages/Checkout";
-
-import CoursePage from "./pages/CoursePage";
-import InstructorPage from "./pages/InstructorPage";
-
+import AdminLayout from "./admin/pages/AdminLayout";
+import CourseReviews from "./admin/pages/course-reviews";
 
 function App() {
   return (
@@ -28,12 +26,15 @@ function App() {
           <Route path="/courses" element={<CoursePage />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/cart" element={<ShoppingCart />} />
-          <Route path="/checkout" element={<Checkout/>} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/instructor" element={<InstructorPage />} />
           <Route path="/progress" element={<CourseProgress />} />
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/login" element={<LoginForm/>} />
-          <Route path="/signup" element={<Signup/>} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<Signup />} />
+        </Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<CourseReviews />} />
         </Route>
       </Routes>
     </>

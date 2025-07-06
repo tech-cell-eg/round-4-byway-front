@@ -198,7 +198,8 @@ const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center space-x-4">
             {!isLoggedIn ? (
               authLinks.map((link) => (
-                <Link to={link.path}
+                <Link
+                  to={link.path}
                   key={link.path}
                   onClick={link.onClick}
                   className={`cursor-pointer flex items-center px-4 py-2 rounded-md transition-all duration-300 ease-in-out ${
@@ -235,14 +236,9 @@ const Navbar: React.FC = () => {
                         : "scale-95 opacity-0 pointer-events-none"
                     }`}
                   >
-                    {dropdownLinks.map((item) => (
-                      <div
-                        key={item.label}
-
                     {dropdownLinks.map((item, index) => (
                       <div
                         key={index}
-
                         onClick={() => {
                           if (item.onClick) item.onClick();
                           setIsDropdownOpen(false);
