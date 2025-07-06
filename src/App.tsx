@@ -11,15 +11,12 @@ import Profile from "./pages/Profile";
 import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
 import Checkout from "./pages/Checkout";
-
 import CoursePage from "./pages/CoursePage";
 
-import CourseChapters from "./Admin/components/CourseChapters"
-import ChatPage from "./Admin/components/Chat";
 function App() {
   return (
     <>
-      <ScrollToTop />
+      <ScrollToTop /> 
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomeScreen />} />
