@@ -96,7 +96,7 @@ export default function TableComponent() {
   return (
     <div className="bg-[#F8FAFC] min-h-screen">
       <div className="container mx-auto w-[85%]  flex flex-col gap-4 ">
-        <ChaptersBtn/>
+        {/* <ChaptersBtn/> */}
 
         <Table className="bg-white rounded-lg">
           <TableHeader>
