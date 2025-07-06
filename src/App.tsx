@@ -10,17 +10,12 @@ import ShoppingCart from "./pages/ShoppingCart";
 import Profile from "./pages/Profile";
 import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
-import CoursePage from "./pages/CoursePage";
 import Checkout from "./pages/Checkout";
-
 import CoursePage from "./pages/CoursePage";
-import InstructorPage from "./pages/InstructorPage";
-
-
 function App() {
   return (
     <>
-      <ScrollToTop />
+      <ScrollToTop /> 
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomeScreen />} />
