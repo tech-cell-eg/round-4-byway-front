@@ -12,6 +12,7 @@ import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
 import Checkout from "./pages/Checkout";
 import CoursePage from "./pages/CoursePage";
+
 function App() {
   return (
     <>
@@ -31,6 +32,9 @@ function App() {
           <Route path="/signup" element={<Signup/>} />
         </Route>
       </Routes>
+      {/* <CourseChapters/> */}
+      {/* <ChatPage/> */}
+      
     </>
   );
 }
