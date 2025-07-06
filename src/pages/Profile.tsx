@@ -5,6 +5,7 @@ import TeacherContent from '@/components/TeacherContent';
 import CoursesContent from '@/components/CoursesContent';
 import FillterBtn from '@/components/FillterBtn';
 import Messages from '@/components/Messages';
+import Reviews from '@/components/LearnerReviews';
 
 const Profile = () => {
     const [activeTab, setActiveTab] = useState("Profile");
@@ -24,7 +25,7 @@ const renderContent = () => {
       case "Message":
         return <Messages/>;
       case "My Reviews":
-        return <div>Reviews</div>;
+        return <Reviews/>;
       default:
         return null;
     }
