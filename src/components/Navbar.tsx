@@ -15,6 +15,7 @@ import {
 import logo from "../assets/logo.png";
 import SearchBar from "./SearchBar";
 import defaultAvatar from "../assets/logo.png";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -224,9 +225,13 @@ const Navbar: React.FC = () => {
                         : "scale-95 opacity-0 pointer-events-none"
                     }`}
                   >
-                    {dropdownLinks.map((item) => (
+                    {/* {dropdownLinks.map((item) => (
                       <div
-                        key={item.label}
+                        key={item.label} */}
+
+                    {dropdownLinks.map((item, index) => (
+                      <div
+                        key={index}
                         onClick={() => {
                           if (item.onClick) item.onClick();
                           setIsDropdownOpen(false);
