@@ -19,7 +19,6 @@ import defaultAvatar from "../assets/logo.png";
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // Fake auth state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({
     name: "John Doe",
@@ -31,7 +30,6 @@ const Navbar: React.FC = () => {
   const closeMenu = () => setIsMenuOpen(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  // Fake login function
   const handleLogin = () => {
     setIsLoggedIn(true);
     setUser({
@@ -41,7 +39,6 @@ const Navbar: React.FC = () => {
     });
   };
 
-  // Fake signup function
   const handleSignup = () => {
     setIsLoggedIn(true);
     setUser({
@@ -51,7 +48,6 @@ const Navbar: React.FC = () => {
     });
   };
 
-  // Fake logout function
   const handleLogout = () => {
     setIsLoggedIn(false);
     setIsDropdownOpen(false);
@@ -96,6 +92,7 @@ const Navbar: React.FC = () => {
       icon: <FiGlobe className="w-4 h-4" />,
     },
     {
+
       label: "Dark Mode",
       icon: <FiSettings className="w-4 h-4" />,
     },
@@ -124,29 +121,25 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
-  // Icon group component
   const IconGroup = () => (
     <div className="flex items-center space-x-4">
-      {/* Heart Icon */}
       <Link
         to="/wishlist"
-        className="p-2 text-gray-700 hover:text-gray-900 transition-colors duration-200 relative"
+        className="p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
         aria-label="Wishlist"
       >
         <FiHeart className="w-5 h-5" />
       </Link>
-      {/* Cart Icon */}
       <Link
         to="/cart"
-        className="p-2 text-gray-700 hover:text-gray-900 transition-colors duration-200 relative"
+        className="p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
         aria-label="Shopping Cart"
       >
         <FiShoppingCart className="w-5 h-5" />
       </Link>
-      {/* Notification Icon */}
       <Link
         to="/notifications"
-        className="p-2 text-gray-700 hover:text-gray-900 transition-colors duration-200 relative"
+        className="p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
         aria-label="Notifications"
       >
         <FiBell className="w-5 h-5" />
@@ -155,12 +148,12 @@ const Navbar: React.FC = () => {
   );
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-sm">
+    <nav className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-sm transition-colors duration-300">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <Link
             to="/"
-            className="flex items-center text-2xl font-bold text-gray-800 hover:text-gray-900 transition-colors duration-200"
+            className="flex items-center text-2xl font-bold text-gray-800 dark:text-white hover:text-gray-900 transition-colors duration-200"
             aria-label="Byway Home"
           >
             <img
@@ -173,28 +166,20 @@ const Navbar: React.FC = () => {
           </Link>
           <div className="hidden lg:flex items-center flex-1 mx-8">
             <div className="flex items-center justify-around w-full">
-              {navLinks[0] && (
+              {navLinks.map((link) => (
                 <Link
-                  to={navLinks[0].path}
-                  className="text-gray-700 hover:text-gray-900 transition-colors duration-200"
+                  key={link.path}
+                  to={link.path}
+                  className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
                 >
-                  {navLinks[0].label}
+                  {link.label}
                 </Link>
-              )}
+              ))}
               <div className="flex-1 mx-6">
                 <SearchBar />
               </div>
-              {navLinks[1] && (
-                <Link
-                  to={navLinks[1].path}
-                  className="text-gray-700 hover:text-gray-900 transition-colors duration-200"
-                >
-                  {navLinks[1].label}
-                </Link>
-              )}
             </div>
           </div>
-          {/* Desktop Auth Section */}
           <div className="hidden lg:flex items-center space-x-4">
             {!isLoggedIn ? (
               authLinks.map((link) => (
@@ -205,7 +190,7 @@ const Navbar: React.FC = () => {
                   className={`cursor-pointer flex items-center px-4 py-2 rounded-md transition-all duration-300 ease-in-out ${
                     link.isPrimary
                       ? "bg-gray-600 text-white hover:bg-gray-700"
-                      : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      : "text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
                   }`}
                 >
                   {link.label}
@@ -214,6 +199,7 @@ const Navbar: React.FC = () => {
               ))
             ) : (
               <>
+                <ModeToggle />
                 <IconGroup />
                 <div className="relative" ref={dropdownRef}>
                   <button
@@ -225,11 +211,14 @@ const Navbar: React.FC = () => {
                       alt="User Avatar"
                       className="w-8 h-8 rounded-full object-cover"
                     />
-                    <span className="text-gray-700">{user.name}</span>
+                    <span className="text-gray-700 dark:text-gray-200">
+                      {user.name}
+                    </span>
                   </button>
+
                   {/* Dropdown menu with transition */}
                   <div
-                    className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200 transform transition-all duration-200 origin-top-right ${
+                    className={`absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg py-1 z-50 transform transition-all duration-200 origin-top-right ${
                       isDropdownOpen
                         ? "scale-100 opacity-100 pointer-events-auto"
                         : "scale-95 opacity-0 pointer-events-none"
@@ -242,7 +231,7 @@ const Navbar: React.FC = () => {
                           if (item.onClick) item.onClick();
                           setIsDropdownOpen(false);
                         }}
-                        className="cursor-pointer flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                        className="cursor-pointer flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                       >
                         <span className="mr-3">{item.icon}</span>
                         {item.label}
@@ -253,9 +242,8 @@ const Navbar: React.FC = () => {
               </>
             )}
           </div>
-          {/* Mobile Menu Button */}
           <button
-            className="cursor-pointer lg:hidden p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-300"
+            className="cursor-pointer lg:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all duration-300"
             onClick={toggleMenu}
             aria-label="Toggle navigation"
             aria-expanded={isMenuOpen}
@@ -267,40 +255,30 @@ const Navbar: React.FC = () => {
             )}
           </button>
         </div>
-        {/* Mobile Menu Layout */}
         <div
           className={`
             lg:hidden overflow-hidden transition-all duration-500 ease-in-out
             ${
               isMenuOpen ? "max-h-screen opacity-100 mt-4" : "max-h-0 opacity-0"
             }
+            bg-white dark:bg-gray-900
           `}
         >
           <div className="pb-4 space-y-4">
-            {/* Mobile Navigation Links */}
-            <div className="space-y-2 transition-opacity duration-300 delay-100">
+            {navLinks.map((link) => (
               <Link
-                to={navLinks[0].path}
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-300"
+                key={link.path}
+                to={link.path}
+                className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors duration-300"
                 onClick={closeMenu}
               >
-                {navLinks[0].label}
+                {link.label}
               </Link>
-            </div>
-            <div className="mb-2 transition-opacity duration-300 delay-150">
+            ))}
+            <div className="mb-2">
               <SearchBar />
             </div>
-            <div className="space-y-2 transition-opacity duration-300 delay-200">
-              <Link
-                to={navLinks[1].path}
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-300"
-                onClick={closeMenu}
-              >
-                {navLinks[1].label}
-              </Link>
-            </div>
-            {/* Auth Buttons */}
-            <div className="pt-4 border-t border-gray-200 space-y-3 transition-opacity duration-300 delay-300">
+            <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
               {!isLoggedIn ? (
                 authLinks.map((link) => (
                   <Link
@@ -313,7 +291,7 @@ const Navbar: React.FC = () => {
                     className={`flex px-4 py-2 rounded-md text-center justify-center transition-colors duration-300 ${
                       link.isPrimary
                         ? "bg-gray-600 text-white hover:bg-gray-700"
-                        : "text-gray-700 hover:bg-gray-100"
+                        : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >
                     {link.label}
@@ -328,34 +306,18 @@ const Navbar: React.FC = () => {
                       className="w-8 h-8 rounded-full mr-3"
                     />
                     <div>
-                      <p className="font-medium">{user.name}</p>
-                      <p className="text-sm text-gray-500">{user.email}</p>
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {user.name}
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {user.email}
+                      </p>
                     </div>
                   </div>
-                  {/* Mobile Icon Group */}
                   <div className="flex justify-around px-4 py-2">
-                    <Link
-                      to="/wishlist"
-                      className="p-2 text-gray-700 hover:text-gray-900 transition-colors duration-200 relative"
-                      onClick={closeMenu}
-                    >
-                      <FiHeart className="w-5 h-5" />
-                    </Link>
-                    <Link
-                      to="/cart"
-                      className="p-2 text-gray-700 hover:text-gray-900 transition-colors duration-200 relative"
-                      onClick={closeMenu}
-                    >
-                      <FiShoppingCart className="w-5 h-5" />
-                    </Link>
-                    <Link
-                      to="/notifications"
-                      className="p-2 text-gray-700 hover:text-gray-900 transition-colors duration-200 relative"
-                      onClick={closeMenu}
-                    >
-                      <FiBell className="w-5 h-5" />
-                    </Link>
+                    <IconGroup />
                   </div>
+
                   {/* Dropdown Links */}
                   {dropdownLinks.map((item) => (
                     <div
@@ -364,7 +326,7 @@ const Navbar: React.FC = () => {
                         if (item.onClick) item.onClick();
                         closeMenu();
                       }}
-                      className="cursor-pointer flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+                      className="cursor-pointer flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md"
                     >
                       <span className="mr-3">{item.icon}</span>
                       {item.label}

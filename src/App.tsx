@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
 import Checkout from "./pages/Checkout";
+
 import InstructorPage from "./pages/InstructorPage";
 import CourseProgress from "./components/ui/CourseProgress";
 import ReviewsBadge from "./admin/components/ReviewsBadge";

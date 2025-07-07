@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 :root {
   scroll-behavior: auto;
   box-sizing: border-box;
