@@ -6,6 +6,7 @@ import {
   FiShoppingCart,
   FiUser,
   FiLogOut,
+  FiSettings,
   FiBook,
   FiGlobe,
   FiBell,
@@ -14,7 +15,6 @@ import {
 import logo from "../assets/logo.png";
 import SearchBar from "./SearchBar";
 import defaultAvatar from "../assets/logo.png";
-import { ModeToggle } from "./mode-toggle";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -90,6 +90,11 @@ const Navbar: React.FC = () => {
     {
       label: "Switch Language",
       icon: <FiGlobe className="w-4 h-4" />,
+    },
+    {
+
+      label: "Dark Mode",
+      icon: <FiSettings className="w-4 h-4" />,
     },
     {
       path: "/logout",
@@ -210,6 +215,8 @@ const Navbar: React.FC = () => {
                       {user.name}
                     </span>
                   </button>
+
+                  {/* Dropdown menu with transition */}
                   <div
                     className={`absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg py-1 z-50 transform transition-all duration-200 origin-top-right ${
                       isDropdownOpen
@@ -217,9 +224,9 @@ const Navbar: React.FC = () => {
                         : "scale-95 opacity-0 pointer-events-none"
                     }`}
                   >
-                    {dropdownLinks.map((item, index) => (
+                    {dropdownLinks.map((item) => (
                       <div
-                        key={index}
+                        key={item.label}
                         onClick={() => {
                           if (item.onClick) item.onClick();
                           setIsDropdownOpen(false);
@@ -310,9 +317,11 @@ const Navbar: React.FC = () => {
                   <div className="flex justify-around px-4 py-2">
                     <IconGroup />
                   </div>
-                  {dropdownLinks.map((item, index) => (
+
+                  {/* Dropdown Links */}
+                  {dropdownLinks.map((item) => (
                     <div
-                      key={index}
+                      key={item.label}
                       onClick={() => {
                         if (item.onClick) item.onClick();
                         closeMenu();
