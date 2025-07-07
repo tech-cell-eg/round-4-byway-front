@@ -11,13 +11,13 @@ import Signup from "./auth/Signup";
 import Checkout from "./pages/Checkout";
 import InstructorPage from "./pages/InstructorPage";
 import CourseProgress from "./components/ui/CourseProgress";
-import ReviewsBadge from "./admin/components/ReviewsBadge";
-import DashboardLayout from "./admin/components/DashboardLayout";
-import DashboardHome from "./admin/pages/DashboardHome";
-import NotificationAnnouncements from "./admin/pages/NotificationAnnouncements";
-import NotificationSend from "./admin/pages/NotificationSend";
-import CourseCustomer from "./admin/pages/CourseCustomer";
-import CourseDetailsPage from "./admin/pages/CourseDetailsPage";
+import ReviewsBadge from "./Admin/components/ReviewsBadge";
+import DashboardLayout from "./Admin/components/DashboardLayout";
+import DashboardHome from "./Admin/pages/DashboardHome";
+import NotificationAnnouncements from "./Admin/pages/NotificationAnnouncements";
+import NotificationSend from "./Admin/pages/NotificationSend";
+import CourseCustomer from "./Admin/pages/CourseCustomer";
+import CourseDetailsPage from "./Admin/pages/CourseDetailsPage";
 import CoursePage from "./pages/CoursePage";
 
 function App() {
