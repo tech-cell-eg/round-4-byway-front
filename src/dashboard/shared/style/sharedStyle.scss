@@ -1,0 +1,25 @@
+.listTabs {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  li {
+    color: #475569;
+    font-size: 15px;
+    cursor: pointer;
+    &.active {
+      position: relative;
+      color: #3b82f6;
+      &::before {
+        content: "";
+        position: absolute;
+        width: calc(100% + 10px);
+        height: 2px;
+        background-color: #3b82f6;
+        bottom: -21px;
+        right: -5px;
+      }
+    }
+  }
+}
