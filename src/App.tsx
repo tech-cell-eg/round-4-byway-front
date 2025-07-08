@@ -51,9 +51,7 @@ function App() {
           {/* All Dashboard Routes Go Here*/}
         </Route>
       </Routes>
-      {/* <CourseChapters/> */}
       {/* <ChatPage/> */}
-      
     </>
   );
 }
