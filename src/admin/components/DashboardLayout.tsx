@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <div className=" md:flex min-h-screen">
+    <div className="flex min-h-screen">
       <Sidebar />
       <main className="p-4 w-full overflow-auto">
         <Outlet />
