@@ -1,11 +1,15 @@
-import CoursesCard from "../component/CoursesCard"
+
+import CoursesCard from "../components/CoursesCard"
+// import Navbar from "@/components/Navbar"
+
+import Sidebar from "../components/Sidebar"
 
 function SellerCourses() {
   return (
-    <div>
-      <aside></aside>
-      <nav></nav>
-      <CoursesCard/>
+    <div className="w-full flex">
+      <Sidebar/>
+      {/* <Navbar/> */}
+      <CoursesCard/> 
     </div>
   )
 }

@@ -28,7 +28,7 @@ const navItems: NavItem[] = [
   },
   {
     label: "Courses",
-    to: "/seller/courses",
+    to: "/seller/courses", 
     icon: <FiBook className="w-5 h-5" />,
   },
   {

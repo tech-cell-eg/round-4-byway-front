@@ -18,10 +18,12 @@ import NotificationSend from "./admin/pages/NotificationSend";
 import CourseCustomer from "./admin/pages/CourseCustomer";
 import CourseDetailsPage from "./admin/pages/CourseDetailsPage";
 import CoursePage from "./pages/CoursePage";
+import CoursePoromotion from "./dashboard/pages/CoursePormotion/CoursePormotion";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -46,10 +48,10 @@ function App() {
           <Route path="notification-send" element={<NotificationSend />} />
           <Route path="course-customer" element={<CourseCustomer />} />
           <Route path="course-details" element={<CourseDetailsPage />} />
+          <Route path="courses" element={<CoursePoromotion />} />
           {/* All Dashboard Routes Go Here*/}
         </Route>
       </Routes>
-      {/* <CourseChapters/> */}
       {/* <ChatPage/> */}
     </>
   );

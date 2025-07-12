@@ -1,6 +1,7 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { ChevronLeft, } from "lucide-react"
-import FileUploader from "../component/FileUploader ";
+import FileUploader from "../components/FileUploader ";
+import ChaptersBtn from "../components/ChaptersBtn";
+import Sidebar from "../components/Sidebar";
 
 function SellerCourseChapters() {
     const chapterNum = `Chapter 1`; 
@@ -8,13 +9,13 @@ function SellerCourseChapters() {
 
 return (
     <>
-        <div>
-            <aside></aside>
+        <div className="flex">
+            <Sidebar/>
             {/* content */}
             <div className="bg-[#E2E8F0] w-full p-4">
                 {/* header */}
-                <div className="mb-8 flex justify-between align-center">
-                    <div className="flex gap-3 align-center">
+                <div className="mb-8 ">
+                    {/* <div className="flex gap-3 align-center">
                         <ChevronLeft color="#334155" />
                         <h2 className="text-[18px] font-bold text-[#334155]">{chapterNum} - {chapterTitle}</h2>
                     </div>
@@ -22,7 +23,8 @@ return (
                         <input type="button" className="text-white bg-[#DC2626] border rounded-[15px] hover:bg-[#965151] cursor-pointer p-3" value="Delete"/>
                         <input type="button" className="text-black bg-[#ffffff] border rounded-[15px] hover:bg-[#ccc9c9] cursor-pointer p-3" value="Move to Draft"/>
                         <input type="button" className="text-white bg-[#2563EB] border rounded-[15px] hover:bg-[#6178a8] cursor-pointer p-3" value="Add Course"/>
-                    </div>
+                    </div> */}
+                    <ChaptersBtn/>
                 </div>
                 {/* tabs */}
                 <div className="mt-5">
@@ -88,11 +90,11 @@ return (
                                             </p>
                                         </div>
                                         <h4 className="mt-5 text-grey-700 font-[400] text-[14px]">Upload File</h4>
-                                        <div className="leading-[40px] my-4 w-full max-w-3xl text-wrap break-words bg-white p-3 border border-gray-400 rounded-[20px]">
+                                        <div className="">
                                             <FileUploader/>
                                         </div>
                                         <h4 className="mt-5 text-grey-700 font-[400] text-[14px]">Upload File</h4>
-                                        <div className="leading-[40px] my-4 w-full max-w-3xl text-wrap break-words bg-white p-3 border border-gray-400 rounded-[20px]">
+                                        <div className="">
                                             <FileUploader/>
                                       </div>
                                 </div>
