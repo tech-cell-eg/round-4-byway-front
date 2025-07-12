@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import ProfileHeader from '@/components/ProfileHeader';
+import React, { useState, useEffect } from "react";
+import ProfileHeader from "@/components/ProfileHeader";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import CourseCard from "./ui/CourseCard"; 
+import CourseCard from "./ui/CourseCard";
 import { Pagination } from "@/components/ui/pagination";
 
 type CourseType = {
@@ -19,42 +19,52 @@ const CoursesContent = () => {
 
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/username/courses")
+    fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
       .then((data) => {
-        const mapped = data.map((item: any): CourseType => ({
-          id: item.id,
-          name: item.name,
-          image: item.image,
-          rating: Math.floor(item.rating),
-          chapters: item.chapters_count <= 10
-            ? "1-10"
-            : item.chapters_count <= 15
-            ? "10-15"
-            : item.chapters_count <= 20
-            ? "15-20"
-            : item.chapters_count <= 25
-            ? "20-25"
-            : "25-30",
-        }));
+        const mapped = data.map(
+          (item: any): CourseType => ({
+            id: item.id,
+            name: item.name,
+            image: item.image,
+            rating: Math.floor(item.rating),
+            chapters:
+              item.chapters_count <= 10
+                ? "1-10"
+                : item.chapters_count <= 15
+                ? "10-15"
+                : item.chapters_count <= 20
+                ? "15-20"
+                : item.chapters_count <= 25
+                ? "20-25"
+                : "25-30",
+          }),
+        );
         setCourses(mapped);
       })
       .finally(() => setLoading(false));
   }, []);
 
   const filteredCourses = courses.filter((course) => {
-    const matchesRating = selectedRating ? course.rating === selectedRating : true;
-    const matchesChapters = selectedChapters.length > 0 ? selectedChapters.includes(course.chapters) : true;
-    const matchesSearch = course.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesRating = selectedRating
+      ? course.rating === selectedRating
+      : true;
+    const matchesChapters =
+      selectedChapters.length > 0
+        ? selectedChapters.includes(course.chapters)
+        : true;
+    const matchesSearch = course.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     return matchesRating && matchesChapters && matchesSearch;
   });
 
   return (
     <>
-      <ProfileHeader 
+      <ProfileHeader
         title="Courses"
         count={filteredCourses.length}
         selectedRating={selectedRating}

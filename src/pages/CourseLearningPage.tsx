@@ -148,7 +148,7 @@ const CourseLearningPage: React.FC = () => {
         </div>
         {/* Course-Progress Component */}
         <aside className="space-y-6">
-          <CourseProgress/>
+          <CourseProgress />
         </aside>
       </div>
     </div>

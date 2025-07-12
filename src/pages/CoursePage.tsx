@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IoPlayOutline,
   IoSchoolOutline,
@@ -13,42 +13,73 @@ import {
   FaTelegramPlane,
 } from "react-icons/fa";
 import { FiChevronRight, FiGlobe } from "react-icons/fi";
-
 import instructor from "../assets/instructor.png";
 import courseImage from "../assets/shopping-cart.png";
 import Tabs from "../components/Tabs";
 import CustomerCard from "@/components/CustomerCard";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import Reviews from "@/components/LearnerReviews";
 
 interface Tab {
   id: string;
   label: string;
 }
 
+interface Lesson {
+  id: number;
+  title: string | null;
+  description: string;
+}
+
 interface SyllabusItem {
+  Syllabus_id: number;
   title: string;
+  description: string;
+  lessons: Lesson[];
 }
 
 const CoursePage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>("details");
+  const [activeTab, setActiveTab] = useState<string>("description");
+  const [syllabus, setSyllabus] = useState<SyllabusItem[]>([]);
+  const [expanded, setExpanded] = useState<number | null>(null);
+
+  const { id } = useParams();
+  const token = "24|0Brd0elNLkSdhRwajDtbK6GGQ8nYuF42JQN1ZJeBd9973a08";
 
   const tabs: Tab[] = [
-    { id: "details", label: "Description" },
+    { id: "description", label: "Description" },
     { id: "instructor", label: "Instructor" },
     { id: "syllabus", label: "Syllabus" },
     { id: "reviews", label: "Reviews" },
   ];
 
-  const syllabus: SyllabusItem[] = [
-    { title: "Introduction to UX Design" },
-    { title: "Basics of User-Centered Design" },
-    { title: "Elements of User Experience" },
-    { title: "Visual Design Principles" },
-  ];
+  useEffect(() => {
+    axios
+      .get(
+        `https://round-4-lms-api.digital-vision-solutions.com/api/courses/${id}/syllabuses`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((response) => {
+        setSyllabus(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching syllabuses:", error);
+      });
+  }, [id]);
+
+  const toggleExpand = (id: number) => {
+    setExpanded((prev) => (prev === id ? null : id));
+  };
 
   return (
     <>
       <div className="min-h-screen py-4 px-4 sm:py-6 sm:px-6 lg:px-20">
-        {/* Breadcrumb - Responsive */}
+        {/* Breadcrumb */}
         <div className="flex flex-wrap items-center gap-x-2 text-xs sm:text-sm mb-4">
           <span className="text-gray-900">Home</span>
           <FiChevronRight className="text-gray-300" />
@@ -59,9 +90,8 @@ const CoursePage: React.FC = () => {
           </span>
         </div>
 
-        {/* Main Grid - Responsive columns */}
         <div className="flex flex-col-reverse sm:flex-col lg:grid lg:grid-cols-3 gap-6 lg:gap-10">
-          {/* Left Section - Main Content */}
+          {/* Left Section */}
           <div className="lg:col-span-2 space-y-6">
             {/* Title Section */}
             <div className="space-y-3">
@@ -69,20 +99,19 @@ const CoursePage: React.FC = () => {
                 Introduction to User Experience Design
               </h1>
               <p className="text-gray-700 text-sm sm:text-base">
-                This course provides foundational understanding of UX principles
-                and tools.
+                This course is meticulously crafted to provide you with a
+                foundational understanding of the principles, methodologies, and
+                tools that drive exceptional user experiences in the digital
+                landscape.
               </p>
 
-              {/* Rating and Info */}
+              {/* Rating */}
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm">
                 <div className="flex items-center">
                   <span className="text-amber-300 font-medium mr-1">4.6</span>
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
-                      <FaStar
-                        key={i}
-                        className="text-amber-300 w-3 h-3 sm:w-4 sm:h-4"
-                      />
+                      <FaStar key={i} className="text-amber-300 w-4 h-4" />
                     ))}
                   </div>
                 </div>
@@ -91,14 +120,14 @@ const CoursePage: React.FC = () => {
                 </span>
               </div>
 
-              {/* Instructor */}
-              <div className="flex items-center gap-2 sm:gap-3 mt-3">
+              {/* Instructor Info */}
+              <div className="flex items-center gap-3 mt-3">
                 <img
                   src={instructor}
                   alt="Instructor"
-                  className="rounded-full w-8 h-8 sm:w-10 sm:h-10"
+                  className="w-10 h-10 rounded-full"
                 />
-                <span className="text-xs sm:text-sm text-gray-700">
+                <span className="text-sm text-gray-700">
                   Created by{" "}
                   <span className="text-blue-600 font-medium">
                     Ronald Richards
@@ -109,7 +138,7 @@ const CoursePage: React.FC = () => {
               {/* Languages */}
               <div className="flex items-center gap-2 mt-2">
                 <FiGlobe className="text-gray-500 w-4 h-4" />
-                <span className="text-xs sm:text-sm text-gray-700">
+                <span className="text-sm text-gray-700">
                   English, Spanish, Italian, German
                 </span>
               </div>
@@ -127,12 +156,10 @@ const CoursePage: React.FC = () => {
 
             {/* Tab Content */}
             <div className="space-y-6">
-              {activeTab === "details" && (
+              {activeTab === "description" && (
                 <>
-                  <h2 className="text-lg sm:text-xl font-semibold">
-                    Course Description
-                  </h2>
-                  <p className="text-sm sm:text-base text-gray-700">
+                  <h2 className="text-xl font-semibold">Course Description</h2>
+                  <p className="text-gray-700">
                     This interactive e-learning course will introduce you to
                     User Experience (UX) design, the art of creating products
                     and services that are intuitive, enjoyable, and
@@ -140,16 +167,14 @@ const CoursePage: React.FC = () => {
                     learn to apply them in real-world scenarios through engaging
                     modules and interactive exercises.
                   </p>
-                  <h2 className="text-lg sm:text-xl font-semibold mt-4">
-                    Certification
-                  </h2>
-                  <p className="text-sm sm:text-base text-gray-700">
+                  <h2 className="text-xl font-semibold">Certification</h2>
+                  <p className="text-gray-700">
                     At Byway, we understand the significance of formal
                     recognition for your hard work and dedication to continuous
                     learning. Upon successful completion of our courses, you
                     will earn a prestigious certification that not only
                     validates your expertise but also opens doors to new
-                    opportunities in your chosen field.{" "}
+                    opportunities in your chosen field.
                   </p>
                 </>
               )}
@@ -159,87 +184,93 @@ const CoursePage: React.FC = () => {
                   <h2 className="text-xl font-semibold text-gray-900">
                     Instructor
                   </h2>
-                  <div className="py-5">
-                    <h3 className="text-xl font-semibold text-blue-500">
-                      Ronald Richards
-                    </h3>
-                    <h5 className="text-gray-700 font-normal">
-                      UI/UX Designer
-                    </h5>
-                  </div>
-                  <div className="flex sm:flex-row items-center gap-4">
-                    <div>
-                      <img
-                        src={instructor}
-                        alt="Instructor"
-                        className="w-[120px] h-[120px] rounded-full"
-                      />
-                    </div>
+                  <h3 className="text-blue-500 text-lg font-semibold">
+                    Ronald Richards
+                  </h3>
+                  <p className="text-gray-700">UI/UX Designer</p>
+                  <div className="flex gap-4">
+                    <img
+                      src={instructor}
+                      alt="Instructor"
+                      className="w-[120px] h-[120px] rounded-full"
+                    />
                     <div className="flex flex-col gap-2">
                       <span className="flex items-center gap-2">
-                        <IoMedalOutline size={22} />
-                        40,445 Reviews
+                        <IoMedalOutline /> 40,445 Reviews
                       </span>
                       <span className="flex items-center gap-2">
-                        <IoSchoolOutline size={22} />
-                        500 Students
+                        <IoSchoolOutline /> 500 Students
                       </span>
                       <span className="flex items-center gap-2">
-                        <IoPlayOutline size={22} />
-                        15 Courses
+                        <IoPlayOutline /> 15 Courses
                       </span>
                     </div>
                   </div>
-                  <p className="font-normal text-gray-700 py-5">
+                  <p className="text-gray-700 pt-5">
                     With over a decade of industry experience, Ronald brings a
-                    wealth of practical knowledge to the classroom. He has
-                    played a pivotal role in designing user-centric interfaces
-                    for renowned tech companies, ensuring seamless and engaging
-                    user experiences.
+                    wealth of practical knowledge...
                   </p>
                 </div>
               )}
 
               {activeTab === "syllabus" && (
                 <div className="space-y-3">
-                  <h2 className="text-lg sm:text-xl font-semibold">Syllabus</h2>
-                  <div className="">
-                    {syllabus.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-col sm:flex-row justify-between p-3 sm:p-4 bg-white border rounded-[4px]"
-                      >
-                        <span className="text-sm sm:text-base font-medium flex items-center gap-3">
-                          <FaAngleDown />
+                  <h2 className="text-xl font-semibold">Syllabus</h2>
+                  {syllabus.map((item) => (
+                    <div
+                      key={item.Syllabus_id}
+                      className="border rounded-md bg-white p-4 cursor-pointer"
+                      onClick={() => toggleExpand(item.Syllabus_id)}
+                    >
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-sm sm:text-base flex items-center gap-2">
+                          <FaAngleDown
+                            className={`transition-transform duration-300 ${
+                              expanded === item.Syllabus_id ? "rotate-180" : ""
+                            }`}
+                          />
                           {item.title}
                         </span>
-                        <div className="text-xs sm:text-sm text-gray-500 flex gap-4 mt-1 sm:mt-0">
-                          <span>5 Lessons</span>
-                          <span>1 hour</span>
+                        <div className="text-sm text-gray-500 hidden sm:flex gap-4">
+                          <span>
+                            {item.lessons?.length || 0} Lesson
+                            {item.lessons?.length === 1 ? "" : "s"}
+                          </span>
+                          <span>1 hour</span>{" "}
+                          {/* You can replace this with real time if available */}
                         </div>
                       </div>
-                    ))}
-                  </div>
+                      {expanded === item.Syllabus_id && (
+                        <div className="mt-2 space-y-2">
+                          <p className="text-sm text-gray-700">
+                            {item.description}
+                          </p>
+                          {/* Optional: List lessons if you want */}
+                          {item.lessons?.length > 0 && (
+                            <ul className="pl-4 list-disc text-sm text-gray-600">
+                              {item.lessons.map((lesson, idx) => (
+                                <li key={lesson.id}>
+                                  {lesson.description || `Lesson ${idx + 1}`}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               )}
-
               {activeTab === "reviews" && (
                 <div>
-                  <h2 className="text-lg sm:text-xl font-semibold">
-                    Learner Reviews Component
-                  </h2>
+                  <Reviews />
                 </div>
               )}
             </div>
           </div>
-
-          {/* Right Sidebar - Always visible, moves to top on mobile */}
-          <aside className="lg:sticky lg:top-4 space-y-4 border p-4 rounded-lg shadow-sm bg-white h-fit">
-            <img
-              src={courseImage}
-              alt="Course Image"
-              className="rounded-md w-full"
-            />
+          {/* Right Sidebar */}
+          <aside className="lg:sticky lg:top-4 space-y-4 border p-4 rounded-lg bg-white shadow-sm h-fit">
+            <img src={courseImage} alt="Course" className="w-full rounded-md" />
             <div className="flex items-baseline gap-2">
               <span className="text-lg font-semibold">$49.5</span>
               <span className="text-sm line-through text-gray-400">$99.0</span>
@@ -247,17 +278,17 @@ const CoursePage: React.FC = () => {
                 50% Off
               </span>
             </div>
-            <button className="mt-4 w-full bg-gray-950 transition-colors hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 cursor-pointer text-white py-2 rounded-md font-semibold text-center block">
+            <button className="w-full py-2 bg-gray-950 text-white rounded-md font-semibold hover:bg-gray-700">
               Add to Cart
             </button>
-            <button className="w-full border border-black py-2 rounded text-sm sm:text-base cursor-pointer transition-colors hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+            <button className="w-full border py-2 rounded-md text-sm hover:bg-gray-100">
               Buy Now
             </button>
-            <div className="flex justify-center gap-4 pt-3">
-              <FaGoogle className="text-gray-600 hover:text-black cursor-pointer" />
-              <FaFacebookF className="text-gray-600 hover:text-black cursor-pointer" />
-              <FaTelegramPlane className="text-gray-600 hover:text-black cursor-pointer" />
-              <FaLinkedinIn className="text-gray-600 hover:text-black cursor-pointer" />
+            <div className="flex justify-center gap-4 pt-3 text-gray-600">
+              <FaGoogle />
+              <FaFacebookF />
+              <FaTelegramPlane />
+              <FaLinkedinIn />
             </div>
           </aside>
         </div>
