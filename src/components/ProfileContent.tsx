@@ -35,12 +35,24 @@ const ProfileContent = ({ onSetProfileImage }: { onSetProfileImage: (url: string
     setValue,
   } = useForm<FormData>();
   const [imagePreview, setImagePreview] = useState<string>("");
+// const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const file = e.target.files?.[0];
+//   if (file) {
+//     setImagePreview(URL.createObjectURL(file));
+//   }
+// };
 const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const file = e.target.files?.[0];
   if (file) {
-    setImagePreview(URL.createObjectURL(file));
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      setImagePreview(base64String);
+    };
+    reader.readAsDataURL(file);
   }
 };
+
 const onSubmit = (data: FormData) => {
   console.log("Saved Data:", { ...data, image: imagePreview });
 };
@@ -49,7 +61,7 @@ const onSubmit = (data: FormData) => {
     <>
 <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-[950px]  flex-col gap-4 flex"
+      className="w-full flex-1  flex-col gap-4 flex"
     >
       {/* Personal Info */}
       <div className="flex flex-col gap-4 w-full max-w-[950px] border border-[#E2E8F0] rounded-2xl p-6 ">
@@ -118,10 +130,22 @@ const onSubmit = (data: FormData) => {
   </Button>
           </div>
         </div>
-        <Button type="button" onClick={() => {
+        {/* <Button type="button" onClick={() => {
     onSetProfileImage(imagePreview);
     localStorage.setItem("profileImage", imagePreview);
-  }} className="w-[126px] h-12 bg-[#0F172A] py-2.5 px-6 text-white">Save Image</Button>
+  }} className="w-[126px] h-12 bg-[#0F172A] py-2.5 px-6 text-white">Save Image
+  </Button> */}
+  <Button
+  type="button"
+  onClick={() => {
+    onSetProfileImage(imagePreview);
+    localStorage.setItem("profileImage", imagePreview);
+  }}
+  className="w-[126px] h-12 bg-[#0F172A] py-2.5 px-6 text-white"
+>
+  Save Image
+</Button>
+
       </div>
 
       {/* Social Links */}

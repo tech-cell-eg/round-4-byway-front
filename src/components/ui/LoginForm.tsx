@@ -151,11 +151,11 @@ const LoginForm = () => {
         </form>
       </div>
 
-      <div className="hidden md:block md:w-1/2 h-full">
+      <div className="hidden md:block md:w-1/2 h-[550px] mt-[35px]">
         <img
           src="src/components/ui/images/Frame 427319048.png"
           alt="Login visual"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover "
         />
       </div>
     </div>

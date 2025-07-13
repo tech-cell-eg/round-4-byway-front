@@ -58,6 +58,7 @@ const Reviews = () => {
                 {[...Array(Math.round(review.rating || 0))].map((_, i) => (
                   <StarIcon key={i} fontSize="small" />
                 ))}
+
               </div>
               <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
                 <span className="uppercase font-bold">Review:</span>{" "}
