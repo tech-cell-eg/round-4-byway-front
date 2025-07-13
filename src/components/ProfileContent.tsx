@@ -61,7 +61,7 @@ const onSubmit = (data: FormData) => {
     <>
 <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-[950px]  flex-col gap-4 flex"
+      className="w-full flex-1  flex-col gap-4 flex"
     >
       {/* Personal Info */}
       <div className="flex flex-col gap-4 w-full max-w-[950px] border border-[#E2E8F0] rounded-2xl p-6 ">

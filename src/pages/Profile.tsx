@@ -31,7 +31,7 @@ const renderContent = () => {
   };
  
   return (
-    <div className="container mx-auto max-w-[85%] p-4 gap-8 flex flex-col lg:flex-row items-center sm:items-start w-full">
+    <div className="container mx-auto p-4 gap-8 flex flex-col lg:flex-row items-center sm:items-start ">
 
             
   <ProfileSidebar 

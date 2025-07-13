@@ -31,7 +31,7 @@ const TeacherContent = () => {
   const itemsPerPage = 8;
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
+    fetch("https://round-4-lms-api.digital-vision-solutions.com/api/my-instructors")
       .then((res) => res.json())
       .then((data) => {
         const mapped = data.map((item: any): InstructorType => ({
