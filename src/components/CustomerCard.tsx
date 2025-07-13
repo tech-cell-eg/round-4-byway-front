@@ -33,10 +33,10 @@ const CustomerCard = () => {
 
   return (
     <div>
-      <div className="bg-[#F8FAFC] w-full px-4 py-10">
+      <div className="bg-[#F8FAFC] dark:bg-gray-900 w-full px-4 py-10 ">
         <div className="max-w-[1280px] mx-auto">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
+          <div className="flex justify-between items-center mb-6 ">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-600 dark:text-white">
               What Our Customer Say About Us
             </h2>
             <div className="flex gap-5">
@@ -48,25 +48,25 @@ const CustomerCard = () => {
               </button>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {users.map((user) => (
               <div
                 key={user.id}
-                className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition"
+                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm hover:shadow-md transition"
               >
                 <FaQuoteLeft className="text-blue-500 text-xl mb-4" />
-                <p className="text-sm text-gray-700 mb-6">
+                <p className="text-sm dark:text-white text-gray-700 mb-6">
                   "Byway's tech courses are top-notch! As someone who's always
                   looking to stay ahead in the rapidly evolving tech world, I
                   appreciate the up-to-date content and engaging multimedia."
                 </p>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 ">
                   <img
                     src={user.avatar}
                     alt={user.name}
                     className="w-10 h-10 rounded-full object-cover"
                   />
-                  <div>
+                  <div className="b">
                     <h4 className="font-semibold text-sm text-gray-800">
                       {user.name}
                     </h4>

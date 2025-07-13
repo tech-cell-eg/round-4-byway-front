@@ -6,7 +6,6 @@ import {
   FiShoppingCart,
   FiUser,
   FiLogOut,
-  FiSettings,
   FiBook,
   FiGlobe,
   FiBell,
@@ -97,8 +96,8 @@ const Navbar: React.FC = () => {
       icon: <FiGlobe className="w-4 h-4" />,
     },
     {
-      label: "Dark Mode",
-      icon: <FiSettings className="w-4 h-4" />,
+      label: "Theme",
+      icon: <ModeToggle />,
     },
     {
       path: "/logout",
@@ -174,6 +173,7 @@ const Navbar: React.FC = () => {
           </Link>
           <div className="hidden lg:flex items-center flex-1 mx-8">
             <div className="flex items-center justify-around w-full">
+
               {navLinks[0] && (
                 <Link
                   to={navLinks[0].path}
@@ -181,6 +181,7 @@ const Navbar: React.FC = () => {
                 >
                   {navLinks[0].label}
                 </Link>
+
               )}
               <div className="flex-1 mx-6">
                 <SearchBar />
@@ -219,7 +220,7 @@ const Navbar: React.FC = () => {
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={toggleDropdown}
-                    className="flex items-center space-x-2 focus:outline-none cursor-pointer"
+                    className="flex  bg-white dark:bg-gray-900   items-center space-x-2 focus:outline-none cursor-pointer"
                   >
                     <img
                       src={user.avatar}

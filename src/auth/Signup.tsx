@@ -3,13 +3,16 @@ import frame from "../assets/Frame 427319048.png";
 import GoogleIcon from "../assets/google.png";
 import MicrosoftIcon from "../assets/microsoft.png";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
-
-// ... imports نفس ما هي
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Signup = () => {
+  const [error, setError] = useState();
+  const navigate = useNavigate();
   const validationSchema = Yup.object({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
@@ -17,7 +20,14 @@ const Signup = () => {
     role: Yup.string().required("Role is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(
+        8,
+        "Password must contain at least one uppercase letter and one symbol and number"
+      )
+      .matches(
+        /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+        "Password must contain at least one uppercase letter and one symbol"
+      )
       .required("Password is required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Passwords do not match")
@@ -25,40 +35,65 @@ const Signup = () => {
   });
 
   const initialValues = {
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     username: "",
-    type: "", 
+    role: "",
     email: "",
     password: "",
-    password_confirmation: "",
+    confirmPassword: "",
   };
 
- const handleSubmit = async (values: typeof initialValues) => {
-  try {
-    const response = await fetch("https://round-4-lms-api.digital-vision-solutions.com/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+  const handleSubmit = async (values: typeof initialValues) => {
+    const payload = {
+      first_name: values.firstName,
+      last_name: values.lastName,
+      username: values.username,
+      type: values.role,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.confirmPassword,
+    };
 
-    const data = await response.json();
+    try {
+      const response = await axios.post(
+        "https://round-4-lms-api.digital-vision-solutions.com/api/register",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    if (response.ok) {
-      console.log("✅ Registration successful:", data);
-    } else {
-      console.error("❌ Registration failed:", data);
+      const { message, token, user } = response.data;
+
+      localStorage.setItem("auth", JSON.stringify({ token, user }));
+
+      console.log(message, token, user);
+
+      navigate("/");
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        const serverMessage =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Something went wrong";
+
+        setError(serverMessage);
+        console.error(
+          "Server Validation Error:",
+          error.response?.data?.errors || serverMessage
+        );
+      } else {
+        console.error("Unexpected error:", error);
+      }
     }
-  } catch (error) {
-    console.error("❌ Error submitting form:", error);
-  }
-};
-
+  };
 
   return (
     <div className="flex flex-col md:flex-row gap-4 p-6 bg-gray-100 dark:bg-gray-900 min-h-[600px] transition-colors duration-300">
+      {/* Left Image Section */}
       <section className="flex-1 hidden md:block">
         <img
           src={frame}
@@ -67,71 +102,120 @@ const Signup = () => {
         />
       </section>
 
+      {/* Form Section */}
       <section className="flex-1 bg-white dark:bg-gray-800 rounded-md p-10 shadow-lg transition-colors duration-300">
         <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800 dark:text-gray-100">
           Sign Up
         </h2>
 
         <Formik
-          onSubmit={handleSubmit}
           initialValues={initialValues}
           validationSchema={validationSchema}
+          onSubmit={handleSubmit}
         >
-          <Form className="space-y-10">
+          <Form className="space-y-6">
             <div className="flex gap-4 flex-wrap">
+              <div className="flex-1">
+                <Field
+                  type="text"
+                  name="firstName"
+                  placeholder="First Name"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                />
+                <ErrorMessage
+                  name="firstName"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+              <div className="flex-1">
+                <Field
+                  type="text"
+                  name="lastName"
+                  placeholder="Last Name"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                />
+                <ErrorMessage
+                  name="lastName"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+            </div>
+
+            <div>
               <Field
                 type="text"
-                name="firstName"
-                placeholder="First Name"
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                name="username"
+                placeholder="Username"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
               />
-              <Field
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+              <ErrorMessage
+                name="username"
+                component="div"
+                className="text-red-500 text-sm mt-1"
               />
             </div>
 
-            <Field
-              type="text"
-              name="username"
-              placeholder="Username"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-            />
+            <div>
+              <Field
+                as="select"
+                name="role"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+              >
+                <option value="">Select Role</option>
+                <option value="instructor">Instructor</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </Field>
+              <ErrorMessage
+                name="role"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
-            {/* ⬇ Field لـ Select Role */}
-            <Field
-              as="select"
-              name="role"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-            >
-              <option value="">Select Role</option>
-              <option value="instructor">Instructor</option>
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </Field>
-
-            <Field
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-            />
+            <div>
+              <Field
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
             <div className="flex gap-4 flex-wrap">
-              <Field
-                type="password"
-                name="password"
-                placeholder="Password"
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-              />
-              <Field
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-              />
+              <div className="flex-1">
+                <Field
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+              <div className="flex-1">
+                <Field
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                />
+                <ErrorMessage
+                  name="confirmPassword"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
             </div>
 
             <Button type="submit" className="w-fit">
@@ -140,6 +224,7 @@ const Signup = () => {
           </Form>
         </Formik>
 
+        {/* Social Signups */}
         <div className="my-6 border-t text-center relative">
           <span className="absolute left-1/2 -translate-x-1/2 -top-3 bg-white dark:bg-gray-800 px-4 text-sm text-gray-500 dark:text-gray-300">
             Or Sign up with
@@ -159,10 +244,10 @@ const Signup = () => {
             Microsoft
           </button>
         </div>
+        <p className="text-red-600 text-center mt-3">{error}</p>
       </section>
     </div>
   );
 };
 
 export default Signup;
-
