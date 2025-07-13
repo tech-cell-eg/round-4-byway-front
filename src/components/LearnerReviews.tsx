@@ -10,10 +10,10 @@ const Reviews = () => {
   };
 
   return (
-    <div className="flex flex-col shadow-lg my-5 p-5 bg-white dark:bg-gray-900">
-      <h1 className="uppercase font-bold text-2xl">learner reviews</h1>
+    <div className="flex flex-col bg-white dark:bg-gray-900">
+      {/* <h1 className="uppercase font-bold text-2xl">learner reviews</h1> */}
        <main className="flex-1 p-2">
-        <h1 className="text-xl font-bold mb-4">Reviews ({reviews})</h1>
+        <h1 className="text-xl font-semibold mb-4">Reviews ({reviews})</h1>
         <div className="flex flex-col gap-4">
           {Array(reviews)
             .fill(0)
@@ -22,9 +22,9 @@ const Reviews = () => {
                 key={index}
                 className="border rounded-md p-4 bg-white dark:bg-gray-800 shadow-sm"
               >
-                <h2 className="font-medium text-gray-600">
+                <h2 className=" text-gray-600">
                   Course Name:{" "}
-                  <span className="font-bold text-black">
+                  <span className="font-semibold text-lg text-black">
                     Beginner’s Guide to Design
                   </span>
                 </h2>
@@ -33,8 +33,8 @@ const Reviews = () => {
                     <StarIcon key={i} fontSize="small" />
                   ))}
                 </div>
-                <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                <span className="uppercase font-bold">review :</span>  I was initially apprehensive, having no prior design
+                <p className="mt-2 text-[16px] text-gray-700 dark:text-gray-300">
+                <span className="text-sm capitalize">review :</span>  I was initially apprehensive, having no prior design
                   experience. But the instructor, John Doe, did an amazing job
                   of breaking down complex concepts into easily digestible
                   modules. The video lectures were engaging, and the real-world
