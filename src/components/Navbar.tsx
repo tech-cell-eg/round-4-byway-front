@@ -92,6 +92,10 @@ const Navbar: React.FC = () => {
       icon: <FiGlobe className="w-4 h-4" />,
     },
     {
+      label: "Theme",
+      icon: <ModeToggle />,
+    },
+    {
       path: "/logout",
       label: "Logout",
       icon: <FiLogOut className="w-4 h-4" />,
@@ -161,6 +165,9 @@ const Navbar: React.FC = () => {
           </Link>
           <div className="hidden lg:flex items-center flex-1 mx-8">
             <div className="flex items-center justify-around w-full">
+               <div className="flex-1 mx-6">
+                <SearchBar />
+              </div>
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
@@ -170,9 +177,7 @@ const Navbar: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="flex-1 mx-6">
-                <SearchBar />
-              </div>
+             
             </div>
           </div>
           <div className="hidden lg:flex items-center space-x-4">
@@ -194,12 +199,11 @@ const Navbar: React.FC = () => {
               ))
             ) : (
               <>
-                <ModeToggle />
                 <IconGroup />
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={toggleDropdown}
-                    className="flex items-center space-x-2 focus:outline-none cursor-pointer"
+                    className="flex  bg-white dark:bg-gray-900   items-center space-x-2 focus:outline-none cursor-pointer"
                   >
                     <img
                       src={user.avatar}
