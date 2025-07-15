@@ -9,7 +9,7 @@ import Profile from "./pages/Profile";
 import LoginForm from "./components/ui/LoginForm";
 import Signup from "./auth/Signup";
 import Checkout from "./pages/Checkout";
-import InstructorPage from "./pages/InstructorPage";
+import InstructorPage from "./Components/InstructorPage";
 import CourseProgress from "./components/ui/CourseProgress";
 import ReviewsBadge from "./Admin/components/ReviewsBadge";
 import DashboardLayout from "./Admin/components/DashboardLayout";
@@ -19,6 +19,7 @@ import NotificationSend from "./Admin/pages/NotificationSend";
 import CourseCustomer from "./Admin/pages/CourseCustomer";
 import CourseDetailsPage from "./Admin/pages/CourseDetailsPage";
 import CoursePage from "./pages/CoursePage";
+
 import CoursePoromotion from "./dashboard/pages/CoursePormotion/CoursePormotion";
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/cart" element={<ShoppingCart />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/instructor" element={<InstructorPage />} />
+          <Route path="/instructor" element={<InstructorPage/>} />
           <Route path="/progress" element={<CourseProgress />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<LoginForm />} />

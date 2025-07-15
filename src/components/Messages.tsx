@@ -1,5 +1,9 @@
+
+
+
 import React, { useState, useEffect } from 'react';
 import ProfileHeader from './ProfileHeader';
+
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import MessagesCard from './MessagesCard';
