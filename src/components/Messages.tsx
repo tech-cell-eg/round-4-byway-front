@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ProfileHeader from './ProfileHeader'
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
