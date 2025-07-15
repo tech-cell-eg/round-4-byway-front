@@ -3,172 +3,250 @@ import frame from "../assets/Frame 427319048.png";
 import GoogleIcon from "../assets/google.png";
 import MicrosoftIcon from "../assets/microsoft.png";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/mode-toggle";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Signup = () => {
-  const { t, i18n } = useTranslation();
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    document.dir = lng === "ar" ? "rtl" : "ltr";
-  };
-
+  const [error, setError] = useState();
+  const navigate = useNavigate();
   const validationSchema = Yup.object({
-    firstName: Yup.string().required(t("signup.validation.firstName")),
-    lastName: Yup.string().required(t("signup.validation.lastName")),
-    username: Yup.string().required(t("signup.validation.username")),
-    email: Yup.string()
-      .email(t("signup.validation.invalidEmail"))
-      .required(t("signup.validation.email")),
+    firstName: Yup.string().required("First Name is required"),
+    lastName: Yup.string().required("Last Name is required"),
+    username: Yup.string().required("Username is required"),
+    role: Yup.string().required("Role is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
-      .min(6, t("signup.validation.passwordMin"))
-      .required(t("signup.validation.password")),
+      .min(
+        8,
+        "Password must contain at least one uppercase letter and one symbol and number"
+      )
+      .matches(
+        /^(?=.*[A-Z])(?=.*[!@#$%^&*])/,
+        "Password must contain at least one uppercase letter and one symbol"
+      )
+      .required("Password is required"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], t("signup.validation.passwordsNotMatch"))
-      .required(t("signup.validation.confirmPassword")),
+      .oneOf([Yup.ref("password")], "Passwords do not match")
+      .required("Confirm Password is required"),
   });
 
   const initialValues = {
     firstName: "",
     lastName: "",
     username: "",
+    role: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
 
-  const handleSubmit = (values: typeof initialValues) => {
-    console.log(values);
+  const handleSubmit = async (values: typeof initialValues) => {
+    const payload = {
+      first_name: values.firstName,
+      last_name: values.lastName,
+      username: values.username,
+      type: values.role,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.confirmPassword,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://round-4-lms-api.digital-vision-solutions.com/api/register",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const { message, token, user } = response.data;
+
+      localStorage.setItem("auth", JSON.stringify({ token, user }));
+
+      console.log(message, token, user);
+
+      navigate("/");
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        const serverMessage =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          "Something went wrong";
+
+        setError(serverMessage);
+        console.error(
+          "Server Validation Error:",
+          error.response?.data?.errors || serverMessage
+        );
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   };
 
   return (
-    <>
-      <header className="w-full px-4 py-2 border-b bg-white dark:bg-gray-900 flex justify-between items-center shadow-sm">
-        <h1 className="text-lg font-semibold dark:text-white">
-          {t("signup.title")}
-        </h1>
+    <div className="flex flex-col md:flex-row gap-4 p-6 bg-gray-100 dark:bg-gray-900 min-h-[600px] transition-colors duration-300">
+      {/* Left Image Section */}
+      <section className="flex-1 hidden md:block">
+        <img
+          src={frame}
+          alt="frame"
+          className="h-full w-full object-contain rounded-md"
+        />
+      </section>
 
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => changeLanguage("ar")}
-            className="text-sm px-3 py-1 rounded border dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-          >
-            عربي
-          </button>
-          <button
-            onClick={() => changeLanguage("en")}
-            className="text-sm px-3 py-1 rounded border dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-          >
-            English
-          </button>
+      {/* Form Section */}
+      <section className="flex-1 bg-white dark:bg-gray-800 rounded-md p-10 shadow-lg transition-colors duration-300">
+        <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800 dark:text-gray-100">
+          Sign Up
+        </h2>
 
-          <ModeToggle />
-        </div>
-      </header>
-
-      <div className="flex flex-col md:flex-row gap-4 p-6 bg-gray-100 dark:bg-gray-900 min-h-[600px] rounded-md transition-colors">
-        <section className="flex-1 hidden md:block">
-          <img
-            src={frame}
-            alt="frame"
-            className="h-full w-full object-contain rounded-md"
-          />
-        </section>
-
-        <section className="flex-1 bg-white dark:bg-gray-800 rounded-md p-10 shadow flex flex-col justify-start transition-colors">
-          <h2 className="text-2xl font-semibold text-center mb-6 dark:text-white">
-            {t("signup.title")}
-          </h2>
-
-          <Formik
-            onSubmit={handleSubmit}
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-          >
-            <Form className="space-y-10">
-              <div className="flex gap-4 flex-wrap">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form className="space-y-6">
+            <div className="flex gap-4 flex-wrap">
+              <div className="flex-1">
                 <Field
                   type="text"
                   name="firstName"
-                  placeholder={t("signup.firstName")}
-                  className="flex-1 px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="First Name"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
                 />
+                <ErrorMessage
+                  name="firstName"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+              <div className="flex-1">
                 <Field
                   type="text"
                   name="lastName"
-                  placeholder={t("signup.lastName")}
-                  className="flex-1 px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Last Name"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                />
+                <ErrorMessage
+                  name="lastName"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
                 />
               </div>
+            </div>
 
+            <div>
               <Field
                 type="text"
                 name="username"
-                placeholder={t("signup.username")}
-                className="w-full px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="Username"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
               />
+              <ErrorMessage
+                name="username"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
+            <div>
+              <Field
+                as="select"
+                name="role"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+              >
+                <option value="">Select Role</option>
+                <option value="instructor">Instructor</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </Field>
+              <ErrorMessage
+                name="role"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
+
+            <div>
               <Field
                 type="email"
                 name="email"
-                placeholder={t("signup.email")}
-                className="w-full px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                placeholder="Email"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
               />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
 
-              <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-4 flex-wrap">
+              <div className="flex-1">
                 <Field
                   type="password"
                   name="password"
-                  placeholder={t("signup.password")}
-                  className="flex-1 px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Password"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
                 />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
+                />
+              </div>
+              <div className="flex-1">
                 <Field
                   type="password"
                   name="confirmPassword"
-                  placeholder={t("signup.confirmPassword")}
-                  className="flex-1 px-4 py-2 border rounded bg-transparent dark:bg-gray-700 dark:text-white"
+                  placeholder="Confirm Password"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                />
+                <ErrorMessage
+                  name="confirmPassword"
+                  component="div"
+                  className="text-red-500 text-sm mt-1"
                 />
               </div>
+            </div>
 
-              <Button type="submit" className="w-fit">
-                {t("signup.submit")}{" "}
-                {i18n.language === "ar" ? (
-                  <KeyboardBackspaceIcon />
-                ) : (
-                  <ArrowRightAltIcon />
-                )}
-              </Button>
-            </Form>
-          </Formik>
+            <Button type="submit" className="w-fit">
+              Submit <ArrowRightAltIcon />
+            </Button>
+          </Form>
+        </Formik>
 
-          <div className="my-6 border-t text-center relative">
-            <span className="absolute left-1/2 -translate-x-1/2 -top-3 bg-white dark:bg-gray-800 px-4 text-sm text-gray-500 dark:text-gray-300">
-              {t("signup.signupWith")}
-            </span>
-          </div>
+        {/* Social Signups */}
+        <div className="my-6 border-t text-center relative">
+          <span className="absolute left-1/2 -translate-x-1/2 -top-3 bg-white dark:bg-gray-800 px-4 text-sm text-gray-500 dark:text-gray-300">
+            Or Sign up with
+          </span>
+        </div>
 
-          <div className="flex gap-4 justify-center">
-            <button className="flex-1 border rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 dark:text-white">
-              <FacebookOutlinedIcon color="primary" />
-              <span>{t("signup.facebook")}</span>
-            </button>
-            <button className="flex-1 border rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 dark:text-white">
-              <img src={GoogleIcon} className="w-5 h-5" alt="" />
-              <span>{t("signup.google")}</span>
-            </button>
-            <button className="flex-1 border rounded py-2 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center justify-center gap-2 dark:text-white">
-              <img src={MicrosoftIcon} className="w-5 h-5" alt="" />
-              <span>{t("signup.microsoft")}</span>
-            </button>
-          </div>
-        </section>
-      </div>
-    </>
+        <div className="flex gap-4 justify-center">
+          <button className="flex-1 border border-gray-300 dark:border-gray-600 rounded py-2 flex items-center justify-center gap-2 text-gray-800">
+            <FacebookOutlinedIcon color="primary" /> Facebook
+          </button>
+          <button className="flex-1 border border-gray-300 dark:border-gray-600 rounded py-2 flex items-center justify-center gap-2 text-gray-800">
+            <img src={GoogleIcon} className="w-5 h-5" alt="Google" />
+            Google
+          </button>
+          <button className="flex-1 border border-gray-300 dark:border-gray-600 rounded py-2 flex items-center justify-center gap-2 text-gray-800">
+            <img src={MicrosoftIcon} className="w-5 h-5" alt="Microsoft" />
+            Microsoft
+          </button>
+        </div>
+        <p className="text-red-600 text-center mt-3">{error}</p>
+      </section>
+    </div>
   );
 };
 

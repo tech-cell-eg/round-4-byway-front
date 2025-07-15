@@ -50,9 +50,9 @@ const CoursePage: React.FC = () => {
       <div className="min-h-screen py-4 px-4 sm:py-6 sm:px-6 lg:px-20">
         {/* Breadcrumb - Responsive */}
         <div className="flex flex-wrap items-center gap-x-2 text-xs sm:text-sm mb-4">
-          <span className="text-gray-900">Home</span>
+          <span className="text-gray-600 dark:text-white">Home</span>
           <FiChevronRight className="text-gray-300" />
-          <span className="text-gray-900">Categories</span>
+          <span className="text-gray-600 dark:text-white">Categories</span>
           <FiChevronRight className="text-gray-300" />
           <span className="text-blue-500 truncate max-w-[120px] sm:max-w-none">
             Introduction to UX Design

@@ -19,7 +19,7 @@ const ProfileHeader = ({   title,
   setSelectedChapters,
 }: ProfileHeaderProps) => {
   return (
-    <div className="w-full max-w-[920px]  flex-col gap-4 flex">
+    <div className="flex-col gap-4 flex flex-1">
       <div>
         <h2 className="text-lg font-semibold text-[#0F172A]">
           {title} {count !== undefined && <span className="text-sm text-muted-foreground">({count})</span>}

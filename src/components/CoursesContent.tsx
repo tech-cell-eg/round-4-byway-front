@@ -3,7 +3,6 @@ import ProfileHeader from '@/components/ProfileHeader';
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import CourseCard from "./ui/CourseCard"; 
-import { Pagination } from "@/components/ui/pagination";
 
 type CourseType = {
   id: number;
@@ -22,7 +21,7 @@ const CoursesContent = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/username/courses")
+    fetch("https://round-4-lms-api.digital-vision-solutions.com/api/my-courses")
       .then((res) => res.json())
       .then((data) => {
         const mapped = data.map((item: any): CourseType => ({
@@ -54,7 +53,10 @@ const CoursesContent = () => {
 
   return (
     <>
-      <ProfileHeader 
+      
+
+      <div className=" flex-1 flex flex-col">
+        <ProfileHeader 
         title="Courses"
         count={filteredCourses.length}
         selectedRating={selectedRating}
@@ -72,8 +74,6 @@ const CoursesContent = () => {
           />
         </div>
       </ProfileHeader>
-
-      <div className="flex flex-wrap gap-4 mt-6 justify-center lg:justify-start">
         {filteredCourses.map((course) => (
           <CourseCard
             key={course.id}

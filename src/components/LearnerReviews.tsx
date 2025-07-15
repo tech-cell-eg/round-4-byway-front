@@ -1,86 +1,81 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
-import avater from "../assets/avater.png";
+import axios from "axios";
 import { Button } from "./ui/button";
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState(3);
+  interface Review {
+    review_id: number;
+    rating: number;
+    created_at: string;
+    comment: string;
+    user: {
+      id: number;
+      first_name: string;
+      last_name: string;
+      image: string | null;
+    };
+  }
 
-  const handleReview = () => {
-    setReviews((prev) => prev + 2);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [visibleCount, setVisibleCount] = useState(2);
+
+  const getReviews = async () => {
+    try {
+      const res = await axios.get(
+        `https://round-4-lms-api.digital-vision-solutions.com/api/courses/2/reviews`
+      );
+      setReviews(res.data.data);
+      console.log(res.data.data);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
   };
 
+  useEffect(() => {
+    getReviews();
+  }, []);
+
   return (
-    <div className="flex flex-col shadow-lg my-5 p-5 bg-white dark:bg-gray-900">
-      <h1 className="uppercase font-bold text-2xl">learner reviews</h1>
-      <main className="flex gap-4 mt-4 md:flex-row flex-col">
-        <section className="rating w-[200px] flex flex-col gap-2">
-          <div className="flex items-center justify-start">
-            <span className="text-yellow-400">
-              <StarIcon />
-            </span>
-            <h2 className="text-2xl font-bold">4.8</h2>
-            <h5 className="px-1">146,951 reviews</h5>
-          </div>
-          <div className="flex flex-col">
-            {[80, 10, 5, 3, 2].map((percent, i) => (
-              <span key={i} className="flex items-center gap-1">
-                {Array(5)
-                  .fill(0)
-                  .map((_, index) => (
-                    <StarIcon
-                      key={index}
-                      className={
-                        index >= 5 - i ? "text-gray-300" : "text-yellow-400"
-                      }
-                    />
-                  ))}
-                <span className="text-lg text-black dark:text-white font-bold">
-                  {percent}%
+    <div className="flex flex-col shadow-lg my-5 p-5 bg-white dark:bg-gray-900 w-full rounded-lg">
+      <h1 className="uppercase font-bold text-2xl">Learner Reviews</h1>
+      <main className="flex-1 p-2">
+        <h1 className="text-xl font-bold mb-4">Reviews: {visibleCount}</h1>
+        <div className="flex flex-col gap-4">
+          {reviews.slice(0, visibleCount).map((review, index) => (
+            <div
+              key={index}
+              className="border rounded-md p-4 bg-white dark:bg-gray-800 shadow-sm"
+            >
+              <h2 className="font-medium text-gray-600">
+                course name{" "}
+                <span className="font-bold text-black dark:text-white">
+                  {review.user.first_name}
                 </span>
-              </span>
-            ))}
-          </div>
-        </section>
-        <section className="peopleReviews p-2 flex-1 flex flex-col gap-4">
-          {Array(reviews)
-            .fill(0)
-            .map((_, index) => (
-              <div
-                key={index}
-                className="flex md:flex-row flex-col rounded-lg border-2 p-5 gap-8"
-              >
-                <div className="flex items-center gap-3">
-                  <img
-                    src={avater}
-                    alt="User Avatar"
-                    className="rounded-full"
-                  />
-                  <span className="text-xl uppercase font-bold">Mark Doe</span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="flex items-center gap-1">
-                    <span className="text-yellow-400">
-                      <StarIcon />
-                    </span>
-                    5 Reviewed on 22nd March, 2024
-                  </h3>
-                  <p>
-                    I was initially apprehensive, having no prior design
-                    experience. But the instructor, John Doe, did an amazing job
-                    of breaking down complex concepts into easily digestible
-                    modules.
-                  </p>
-                </div>
+              </h2>
+              <div className="flex items-center gap-1 text-yellow-500">
+                Rating:{" "}
+                {[...Array(Math.round(review.rating || 0))].map((_, i) => (
+                  <StarIcon key={i} fontSize="small" />
+                ))}
+
               </div>
-            ))}
-          <Button
-            onClick={handleReview}
-            className="w-fit bg-white text-black border-2 hover:bg-gray-200"
-          >
-            View more Reviews
-          </Button>
-        </section>
+              <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
+                <span className="uppercase font-bold">Review:</span>{" "}
+                {review.comment}
+              </p>
+            </div>
+          ))}
+
+          {visibleCount < reviews.length && (
+            <Button
+              onClick={() => setVisibleCount((prev) => prev + 2)}
+              className="w-fit bg-white text-black border hover:bg-gray-200 mt-2"
+            >
+              View more Reviews
+            </Button>
+          )}
+        </div>
       </main>
     </div>
   );

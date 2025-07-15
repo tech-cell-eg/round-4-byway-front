@@ -6,7 +6,6 @@ import {
   FiShoppingCart,
   FiUser,
   FiLogOut,
-  FiSettings,
   FiBook,
   FiGlobe,
   FiBell,
@@ -15,6 +14,7 @@ import {
 import logo from "../assets/logo.png";
 import SearchBar from "./SearchBar";
 import defaultAvatar from "../assets/logo.png";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -96,8 +96,8 @@ const Navbar: React.FC = () => {
       icon: <FiGlobe className="w-4 h-4" />,
     },
     {
-      label: "Dark Mode",
-      icon: <FiSettings className="w-4 h-4" />,
+      label: "Theme",
+      icon: <ModeToggle />,
     },
     {
       path: "/logout",
@@ -173,6 +173,7 @@ const Navbar: React.FC = () => {
           </Link>
           <div className="hidden lg:flex items-center flex-1 mx-8">
             <div className="flex items-center justify-around w-full">
+
               {navLinks[0] && (
                 <Link
                   to={navLinks[0].path}
@@ -180,6 +181,7 @@ const Navbar: React.FC = () => {
                 >
                   {navLinks[0].label}
                 </Link>
+
               )}
               <div className="flex-1 mx-6">
                 <SearchBar />
@@ -218,7 +220,7 @@ const Navbar: React.FC = () => {
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={toggleDropdown}
-                    className="flex items-center space-x-2 focus:outline-none cursor-pointer"
+                    className="flex  bg-white dark:bg-gray-900   items-center space-x-2 focus:outline-none cursor-pointer"
                   >
                     <img
                       src={user.avatar}
@@ -235,9 +237,13 @@ const Navbar: React.FC = () => {
                         : "scale-95 opacity-0 pointer-events-none"
                     }`}
                   >
-                    {dropdownLinks.map((item) => (
+                    {/* {dropdownLinks.map((item) => (
                       <div
-                        key={item.label}
+                        key={item.label} */}
+
+                    {dropdownLinks.map((item, index) => (
+                      <div
+                        key={index}
                         onClick={() => {
                           if (item.onClick) item.onClick();
                           setIsDropdownOpen(false);
